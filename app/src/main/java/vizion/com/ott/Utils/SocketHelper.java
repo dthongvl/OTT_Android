@@ -21,13 +21,12 @@ public class SocketHelper {
     private SocketHelper() {
     }
 
-    private static final String ADDRESS = "http://10.0.9.45";
-    private static final String PORT = "3000";
+    private static final String ADDRESS = "https://oan-tu-ti.herokuapp.com";
 
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket(ADDRESS + ":" + PORT);
+            mSocket = IO.socket(ADDRESS);
         } catch (URISyntaxException e) {
         }
     }
