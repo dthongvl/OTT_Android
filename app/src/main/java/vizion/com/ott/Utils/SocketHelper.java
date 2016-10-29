@@ -31,19 +31,19 @@ public class SocketHelper {
         }
     }
 
-    public void AddListener (String event, Emitter.Listener l) {
+    public void addListener (String event, Emitter.Listener l) {
         mSocket.on(event, l);
     }
 
-    public void Connect () {
+    public void connect () {
         mSocket.connect();
     }
 
-    public void Disconnect () {
+    public void disconnect () {
         mSocket.disconnect();
     }
 
-    public void SendRequest (String cmd, JSONObject object) {
+    public void sendRequest (String cmd, JSONObject object) {
         mSocket.emit(cmd, object);
     }
 

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         this.mapViewIDs();
         this.addEventListeners();
         
-        SocketHelper.getInstance().Connect();
+        SocketHelper.getInstance().connect();
 
 
         JSONObject reqObject = new JSONObject();
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        SocketHelper.getInstance().SendRequest(Commands.CLIENT_SIGN_UP, reqObject);
+        SocketHelper.getInstance().sendRequest(Commands.CLIENT_SIGN_UP, reqObject);
     }
 
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
@@ -68,6 +68,6 @@ public class MainActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void addEventListeners() {
-        SocketHelper.getInstance().AddListener(Commands.CLIENT_SIGN_UP_RS, onNewMessage);
+        SocketHelper.getInstance().addListener(Commands.CLIENT_SIGN_UP_RS, onNewMessage);
     }
 }
