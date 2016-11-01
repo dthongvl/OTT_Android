@@ -1,14 +1,13 @@
 package vizion.com.ott.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
-
+import vizion.com.ott.Models.User;
 import vizion.com.ott.R;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -19,14 +18,10 @@ public class SignUpActivity extends AppCompatActivity {
     
     private Button btnSignUp;
 
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        mAuth = FirebaseAuth.getInstance();
 
         addControls();
         addEvents();
@@ -49,6 +44,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signUp() {
+        String email = txtEmail.getText().toString();
+        String password = txtPassword.getText().toString();
+        String nickname = txtNickname.getText().toString();
+        User user = new User(email, password, nickname);
     }
 
     private void addEvents() {
