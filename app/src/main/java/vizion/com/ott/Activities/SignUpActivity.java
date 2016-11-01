@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import vizion.com.ott.Models.User;
+import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.R;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements IActivity {
 
     private EditText txtEmail;
     private EditText txtPassword;
@@ -23,8 +23,8 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        addControls();
-        addEvents();
+        this.mapViewIDs();
+        this.addEventListeners();
     }
     private boolean isValid() {
         boolean result = true;
@@ -47,10 +47,10 @@ public class SignUpActivity extends AppCompatActivity {
         String email = txtEmail.getText().toString();
         String password = txtPassword.getText().toString();
         String nickname = txtNickname.getText().toString();
-        User user = new User(email, password, nickname);
     }
 
-    private void addEvents() {
+    @Override
+    public void addEventListeners() {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +61,8 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void addControls() {
+    @Override
+    public void mapViewIDs() {
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         txtNickname = (EditText) findViewById(R.id.txtNickname);

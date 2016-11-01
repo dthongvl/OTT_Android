@@ -6,9 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.R;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements IActivity {
 
     private EditText txtEmail;
     private EditText txtNickname;
@@ -23,11 +24,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        addControls();
-        addEvents();
+        this.mapViewIDs();
+        this.addEventListeners();
     }
 
-    private void addEvents() {
+    @Override
+    public void addEventListeners() {
         btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +52,8 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void addControls() {
+    @Override
+    public void mapViewIDs() {
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtNickname = (EditText) findViewById(R.id.txtNickname);
         txtPassword = (EditText) findViewById(R.id.txtPassword);

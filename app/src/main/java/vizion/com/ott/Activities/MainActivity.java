@@ -1,6 +1,7 @@
 package vizion.com.ott.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         this.addEventListeners();
 
         SocketHelper.getInstance().connect();
-
+/*
         JSONObject reqObject = new JSONObject();
         try {
             reqObject.put("email", "d@gmail.com");
@@ -47,9 +48,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
             e.printStackTrace();
         }
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_SIGN_UP, reqObject);
-
-        addControls();
-        addEvents();
+        */
     }
 
     private void showProgressDialog() {
@@ -71,7 +70,14 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         showProgressDialog();
         String email = txtEmail.getText().toString();
         String password = txtPassword.getText().toString();
-
+        JSONObject reqObject = new JSONObject();
+        try {
+            reqObject.put("email", email);
+            reqObject.put("pass", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SocketHelper.getInstance().sendRequest(Commands.CLIENT_SIGN_IN, reqObject);
     }
 
     private boolean isValid() {
@@ -87,23 +93,31 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         return result;
     }
 
-    private void addEvents() {
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isValid()) {
-                    signIn();
+    private Emitter.Listener onSignInResult = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    boolean isSuccess;
+                    try {
+                        isSuccess = data.getBoolean("isSuccess");
+                        if (isSuccess) {
+                            hideProgressDialog();
+                            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        return;
+                    }
                 }
-            }
-        });
-    }
-
-    private void addControls() {
-        txtEmail = (EditText) findViewById(R.id.txtEmail);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
-    }
+            });
+        }
+    };
 
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
@@ -130,11 +144,22 @@ public class MainActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void mapViewIDs() {
-
+        txtEmail = (EditText) findViewById(R.id.txtEmail);
+        txtPassword = (EditText) findViewById(R.id.txtPassword);
+        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+        btnSignUp = (Button) findViewById(R.id.btnSignUp);
     }
 
     @Override
     public void addEventListeners() {
-        SocketHelper.getInstance().addListener(Commands.CLIENT_SIGN_UP_RS, onNewMessage);
+        SocketHelper.getInstance().addListener(Commands.CLIENT_SIGN_IN_RS, onSignInResult);
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isValid()) {
+                    signIn();
+                }
+            }
+        });
     }
 }
