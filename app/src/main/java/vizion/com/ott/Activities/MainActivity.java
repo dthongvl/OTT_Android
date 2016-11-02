@@ -106,20 +106,25 @@ public class MainActivity extends AppCompatActivity implements IActivity {
                         if (isSuccess) {
                             hideProgressDialog();
                             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                            //data.get
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_SHORT).show();
+                            txtEmail.setError("Email hoặc mật khẩu không đúng");
                         }
                     } catch (JSONException e) {
                         return;
+                    }
+                    finally {
+                        hideProgressDialog();
                     }
                 }
             });
         }
     };
 
-    private Emitter.Listener onNewMessage = new Emitter.Listener() {
+   /* private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
             runOnUiThread(new Runnable() {
@@ -132,7 +137,9 @@ public class MainActivity extends AppCompatActivity implements IActivity {
                         if (isSuccess)
                             Toast.makeText(MainActivity.this, data.getString("uid"), Toast.LENGTH_LONG).show();
                         else
-                            Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_LONG).show();
+                            txtEmail.setError("Email hoặc mật khẩu không đúng");
+
                     } catch (JSONException e) {
                         return;
                     }
@@ -140,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
                 }
             });
         }
-    };
+    };*/
 
     @Override
     public void mapViewIDs() {
@@ -159,6 +166,14 @@ public class MainActivity extends AppCompatActivity implements IActivity {
                 if (isValid()) {
                     signIn();
                 }
+            }
+        });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
             }
         });
     }
