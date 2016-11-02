@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,13 +105,13 @@ public class MainActivity extends AppCompatActivity implements IActivity {
                     try {
                         isSuccess = data.getBoolean("isSuccess");
                         if (isSuccess) {
-                            hideProgressDialog();
+                            hideProgressDialog           ();
                             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                            //data.get
+                            intent.putExtra("user",data.getJSONObject("user").toString());
+                            intent.putExtra("email",txtEmail.getText().toString());
                             startActivity(intent);
                             finish();
                         } else {
-                            //Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_SHORT).show();
                             txtEmail.setError("Email hoặc mật khẩu không đúng");
                         }
                     } catch (JSONException e) {
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         }
     };
 
-   /* private Emitter.Listener onNewMessage = new Emitter.Listener() {
+   /*private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
             runOnUiThread(new Runnable() {
