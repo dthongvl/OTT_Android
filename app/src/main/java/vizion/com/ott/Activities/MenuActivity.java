@@ -3,8 +3,10 @@ package vizion.com.ott.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +23,10 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
     private Button btnProfile;
     private Button btnAbout;
 
+    public static JSONObject user;
+
+    public static String email;
+
     private String uid;
 
     @Override
@@ -28,9 +34,21 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        try {
+            user= new JSONObject(getIntent().getStringExtra("user"));
+            email= getIntent().getStringExtra("email");
+            Toast.makeText(MenuActivity.this,email,Toast.LENGTH_LONG).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         this.mapViewIDs();
         this.addEventListeners();
     }
+
+
+
+
 
     private void signOut() {
         JSONObject reqObject = new JSONObject();
@@ -46,12 +64,14 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
     }
 
     private void aboutActivity() {
-        Intent intent = new Intent(MenuActivity.this, ProfileActivity.class);
+        Intent intent = new Intent(MenuActivity.this, AboutActivity.class);
         startActivity(intent);
     }
 
     private void profileActivity() {
-        Intent intent = new Intent(MenuActivity.this, AboutActivity.class);
+
+        Intent intent = new Intent(MenuActivity.this, ProfileActivity.class);
+        //intent.putExtra("user",user.toString());
         startActivity(intent);
     }
 
