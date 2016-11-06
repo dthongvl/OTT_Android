@@ -1,22 +1,38 @@
 package vizion.com.ott.Models;
 
-/**
- * Created by dthongvl on 10/28/16.
- */
-
 public class User {
-    private String email;
-    private String password;
-    private String avatarUrl;
-    private String nickname;
+    private static User ourInstance = new User();
 
-    public User(String email, String password, String nickname) {
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
+    public static User getInstance() {
+        return ourInstance;
     }
 
-    public User() {
+    private User() {
+    }
+
+    private String uid;
+    private String name;
+    private String email;
+    private double coinCard;
+    private String notiToken;
+    private String avatar;
+    private String histories;
+    private String socketId;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -27,27 +43,43 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public double getCoinCard() {
+        return coinCard;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCoinCard(double coinCard) {
+        this.coinCard = coinCard;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
+    public String getNotiToken() {
+        return notiToken;
     }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+    public void setNotiToken(String notiToken) {
+        this.notiToken = notiToken;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getHistories() {
+        return histories;
+    }
+
+    public void setHistories(String histories) {
+        this.histories = histories;
+    }
+
+    public String getSocketId() {
+        return socketId;
+    }
+
+    public void setSocketId(String socketId) {
+        this.socketId = socketId;
     }
 }

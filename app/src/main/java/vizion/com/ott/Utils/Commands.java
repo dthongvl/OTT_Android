@@ -9,4 +9,5 @@ public class Commands {
     public static final String CLIENT_SIGN_IN = "Client-Login";
     public static final String CLIENT_SIGN_IN_RS = "Client-Login-Rs";
     public static final String CLIENT_SIGN_OUT = "disconnect";
+    public static final String CLIENT_RECEIVE_FIRST_ROOMS = "Server-Send-First-Rooms-Page";
 }

@@ -2,7 +2,6 @@ package vizion.com.ott.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -123,7 +122,7 @@ public class SignUpActivity extends AppCompatActivity implements IActivity {
                             txtEmail.setError("Email hoặc mật khẩu không đúng");
                         }
                     } catch (JSONException e) {
-                        return;
+                        e.printStackTrace();
                     }
                     finally {
                         hideProgressDialog();
