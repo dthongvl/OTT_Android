@@ -3,18 +3,14 @@ package vizion.com.ott.Activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import vizion.com.ott.Entities.IActivity;
+import vizion.com.ott.Models.User;
 import vizion.com.ott.R;
 
 public class ProfileActivity extends AppCompatActivity implements IActivity {
@@ -25,11 +21,6 @@ public class ProfileActivity extends AppCompatActivity implements IActivity {
     private EditText txtNewpassword;
     private ImageView imgAvatar;
     private Button btnChange;
-
-
-
-
-
 
     private boolean isEditMode = false;
 
@@ -45,23 +36,13 @@ public class ProfileActivity extends AppCompatActivity implements IActivity {
 
     private void getUserInfo() {
         //Toast.makeText(ProfileActivity.this,MenuActivity.email,Toast.LENGTH_LONG).show();
-        txtEmail.setText(MenuActivity.email);
+        txtEmail.setText(User.getInstance().getEmail());
 
-        try {
-            txtNickname.setText(MenuActivity.user.getString("name"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        txtNickname.setText(User.getInstance().getName());
 
 //Chưa tìm được solution, imgAvatar.getWidth/Height trả về 0-> lỗi
-        try {
-            Picasso.with(getBaseContext()).load(MenuActivity.user.getString("avatar"))
+            Picasso.with(getBaseContext()).load(User.getInstance().getAvatar())
                     .resize(156,156).centerCrop().into(imgAvatar);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override

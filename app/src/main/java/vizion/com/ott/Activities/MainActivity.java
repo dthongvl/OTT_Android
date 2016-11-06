@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vizion.com.ott.Entities.IActivity;
+import vizion.com.ott.Models.User;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
 import vizion.com.ott.Utils.SocketHelper;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_SIGN_IN, reqObject);
     }
 
-    private boolean isValid() {
+    private boolean isInputValid() {
         boolean result = true;
         if (TextUtils.isEmpty(txtEmail.getText())) {
             txtEmail.setError(getString(R.string.input_error));
@@ -101,24 +101,30 @@ public class MainActivity extends AppCompatActivity implements IActivity {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
-                    boolean isSuccess;
                     try {
-                        isSuccess = data.getBoolean("isSuccess");
+                        boolean isSuccess = data.getBoolean("isSuccess");
                         if (isSuccess) {
-                            hideProgressDialog           ();
+                            JSONObject userJSON = data.getJSONObject("user");
+                            User.getInstance().setUid(userJSON.getString("uid"));
+                            User.getInstance().setName(userJSON.getString("name"));
+                            User.getInstance().setEmail(txtEmail.getText().toString());
+                            User.getInstance().setCoinCard(userJSON.getDouble("coin_card"));
+                            User.getInstance().setNotiToken(userJSON.getString("noti_token"));
+                            User.getInstance().setAvatar(userJSON.getString("avatar"));
+                            User.getInstance().setHistories(userJSON.getString("histories"));
+                            User.getInstance().setSocketId(userJSON.getString("socket_id"));
+
+                            hideProgressDialog();
+
                             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                            intent.putExtra("user",data.getJSONObject("user").toString());
-                            intent.putExtra("email",txtEmail.getText().toString());
                             startActivity(intent);
                             finish();
                         } else {
-                            txtEmail.setError("Email hoặc mật khẩu không đúng");
+                            hideProgressDialog();
+                            Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
-                        return;
-                    }
-                    finally {
-                        hideProgressDialog();
+                        e.printStackTrace();
                     }
                 }
             });
@@ -164,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isValid()) {
+                if (isInputValid()) {
                     signIn();
                 }
             }
