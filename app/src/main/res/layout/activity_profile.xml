@@ -49,7 +49,8 @@
         android:id="@+id/txtPassword"
         android:hint="@string/password"
         android:layout_marginTop="10dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:text="%17053402%" />
 
     <EditText
         android:layout_width="match_parent"
@@ -59,7 +60,8 @@
         android:id="@+id/txtNewpassword"
         android:hint="@string/new_password"
         android:layout_marginTop="10dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:text="%17053402%" />
 
     <Button
         android:layout_width="127dp"

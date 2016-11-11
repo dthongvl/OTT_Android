@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,11 +14,12 @@ import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import vizion.com.ott.Entities.IActivity;
-import vizion.com.ott.Models.User;
+import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
 import vizion.com.ott.Utils.SocketHelper;
@@ -27,8 +30,9 @@ public class MainActivity extends AppCompatActivity implements IActivity {
     private EditText txtPassword;
     private Button btnSignIn;
     private Button btnSignUp;
-
+    private String roomData;
     private ProgressDialog progressDialog;
+    private boolean getRoomSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,23 +104,29 @@ public class MainActivity extends AppCompatActivity implements IActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    hideProgressDialog();
                     JSONObject data = (JSONObject) args[0];
+
                     try {
+
                         boolean isSuccess = data.getBoolean("isSuccess");
                         if (isSuccess) {
-                            JSONObject userJSON = data.getJSONObject("user");
-                            User.getInstance().setUid(userJSON.getString("uid"));
-                            User.getInstance().setName(userJSON.getString("name"));
-                            User.getInstance().setEmail(txtEmail.getText().toString());
-                            User.getInstance().setCoinCard(userJSON.getDouble("coin_card"));
-                            User.getInstance().setNotiToken(userJSON.getString("noti_token"));
-                            User.getInstance().setAvatar(userJSON.getString("avatar"));
-                            User.getInstance().setHistories(userJSON.getString("histories"));
-                            User.getInstance().setSocketId(userJSON.getString("socket_id"));
 
+                            JSONObject userJSON = data.getJSONObject("user");
+                            MyUser.getInstance().setUid(userJSON.getString("uid"));
+                            MyUser.getInstance().setName(userJSON.getString("name"));
+                            MyUser.getInstance().setEmail(txtEmail.getText().toString());
+                            MyUser.getInstance().setCoinCard(userJSON.getDouble("coin_card"));
+                            MyUser.getInstance().setNotiToken(userJSON.getString("noti_token"));
+                            MyUser.getInstance().setAvatar(userJSON.getString("avatar"));
+                            MyUser.getInstance().setHistories(userJSON.getString("histories"));
+                            MyUser.getInstance().setSocketId(userJSON.getString("socket_id"));
+                            MyUser.getInstance().setWins(userJSON.getJSONObject("statistics").getDouble("wins"));
+                            MyUser.getInstance().setLoses(userJSON.getJSONObject("statistics").getDouble("loses"));
                             hideProgressDialog();
 
                             Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                            intent.putExtra("firstRoomPage",roomData);
                             startActivity(intent);
                             finish();
                         } else {
@@ -131,30 +141,19 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         }
     };
 
-   /*private Emitter.Listener onNewMessage = new Emitter.Listener() {
+    private Emitter.Listener onFirstRoomPageReceive = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     JSONObject data = (JSONObject) args[0];
-                    boolean isSuccess;
-                    try {
-                        isSuccess = data.getBoolean("isSuccess");
-                        if (isSuccess)
-                            Toast.makeText(MainActivity.this, data.getString("uid"), Toast.LENGTH_LONG).show();
-                        else
-                            //Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_LONG).show();
-                            txtEmail.setError("Email hoặc mật khẩu không đúng");
-
-                    } catch (JSONException e) {
-                        return;
-                    }
-
+                    roomData=data.toString();
                 }
             });
         }
-    };*/
+    };
+
 
     @Override
     public void mapViewIDs() {
@@ -166,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void addEventListeners() {
+        SocketHelper.getInstance().addListener(Commands.CLIENT_RECEIVE_FIRST_ROOMS,onFirstRoomPageReceive);
         SocketHelper.getInstance().addListener(Commands.CLIENT_SIGN_IN_RS, onSignInResult);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

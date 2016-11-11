@@ -1,8 +1,10 @@
 package vizion.com.ott.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import vizion.com.ott.Entities.IActivity;
+import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.Models.Room;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
@@ -28,7 +31,6 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
     private Button btnProfile;
     private Button btnAbout;
 
-    private JSONObject user;
     private ArrayList<Room> listRooms;
     private int totalPage;
 
@@ -38,24 +40,35 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
-        try {
-            user = new JSONObject(getIntent().getStringExtra("user"));
-            email = getIntent().getStringExtra("email");
-            Toast.makeText(MenuActivity.this, email, Toast.LENGTH_LONG).show();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
+        getFirstRoomPage();
         this.mapViewIDs();
         this.addEventListeners();
+
+
     }
+
+    private void getFirstRoomPage() {
+        Intent intent = getIntent();
+        try {
+            JSONObject roomdata = new JSONObject(intent.getStringExtra("firstRoomPage"));
+            totalPage = roomdata.getInt("total_page");
+            JSONArray arrRooms = roomdata.getJSONArray("rooms");
+            listRooms = new ArrayList<>();
+            for (int roomOrder = 0; roomOrder < arrRooms.length(); ++roomOrder) {
+                listRooms.add(new Room(arrRooms.getJSONObject(roomOrder)));
+            }
+
+        }
+            catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void signOut() {
         JSONObject reqObject = new JSONObject();
         try {
-            reqObject.put("uid", user.getString("uid"));
+            reqObject.put("uid", MyUser.getInstance().getUid());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -78,9 +91,7 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
     }
 
     private void profileActivity() {
-
         Intent intent = new Intent(MenuActivity.this, ProfileActivity.class);
-        //intent.putExtra("user",user.toString());
         startActivity(intent);
     }
 
@@ -94,7 +105,7 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
                     try {
                         totalPage = data.getInt("total_page");
                         JSONArray arrRooms = data.getJSONArray("rooms");
-                        listRooms = new ArrayList<>();
+                        listRooms.clear();
                         for (int roomOrder = 0; roomOrder < arrRooms.length(); ++roomOrder) {
                             listRooms.add(new Room(arrRooms.getJSONObject(roomOrder)));
                         }
