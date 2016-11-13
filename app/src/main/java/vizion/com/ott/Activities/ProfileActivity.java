@@ -35,6 +35,7 @@ import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
+import vizion.com.ott.Utils.MyProgressDialog;
 import vizion.com.ott.Utils.SocketHelper;
 
 public class ProfileActivity extends AppCompatActivity implements IActivity {
@@ -67,22 +68,6 @@ public class ProfileActivity extends AppCompatActivity implements IActivity {
 
     }
 
-
-
-    private void showProgressDialog() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage(getString(R.string.wait_login));
-        }
-        progressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
-    }
     private void getUserInfo() {
 
 
@@ -157,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity implements IActivity {
         return bytesResult;
     }
     private void updateProfile() {
-        showProgressDialog();
+        MyProgressDialog.getInstance(this, getString(R.string.wait_update_profile)).showProgressDialog();
         String email = txtEmail.getText().toString();
         String password = txtPassword.getText().toString();
         String newPassword = txtNewpassword.getText().toString();
@@ -175,38 +160,6 @@ public class ProfileActivity extends AppCompatActivity implements IActivity {
         }
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_UPDATE_PROFILE, reqObject);
     }
-
-    private Emitter.Listener onUpdateResult = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    boolean isSuccess;
-                    try {
-                        isSuccess = data.getBoolean("isSuccess");
-
-                        if (isSuccess) {
-
-                            MyUser.getInstance().setEmail(txtEmail.getText().toString());
-                            MyUser.getInstance().setName(txtNickname.getText().toString());
-                            MyUser.getInstance().setAvatar(data.getString("newAvatarUrl"));
-                            Log.d("avata",MyUser.getInstance().getAvatar());
-                        } else {
-                            Toast.makeText(getBaseContext(),"errr",Toast.LENGTH_LONG).show();
-                            txtEmail.setError("Email hoặc mật khẩu không đúng");
-                        }
-                    } catch (JSONException e) {
-                        return;
-                    }
-                    finally {
-                        hideProgressDialog();
-                    }
-                }
-            });
-        }
-    };
 
     @Override
     public void addEventListeners() {

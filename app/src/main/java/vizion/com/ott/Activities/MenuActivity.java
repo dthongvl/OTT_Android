@@ -95,28 +95,6 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
         startActivity(intent);
     }
 
-    private Emitter.Listener onListRooms = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    try {
-                        totalPage = data.getInt("total_page");
-                        JSONArray arrRooms = data.getJSONArray("rooms");
-                        listRooms.clear();
-                        for (int roomOrder = 0; roomOrder < arrRooms.length(); ++roomOrder) {
-                            listRooms.add(new Room(arrRooms.getJSONObject(roomOrder)));
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    };
-
     @Override
     public void addEventListeners() {
         SocketHelper.getInstance().addListener(Commands.CLIENT_RECEIVE_FIRST_ROOMS, onListRooms);

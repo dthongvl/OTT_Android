@@ -7,4 +7,6 @@
     <string name="auth_failed">Đăng nhập thất bại</string>
     <string name="wait_login">Đang đăng nhập</string>
     <string name="input_error">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="wait_update_profile">Đang cập nhật thông tin</string>
+    <string name="wait_sign_up">Đang đăng kí</string>
 </resources>
