@@ -239,63 +239,8 @@ public class RoomsActivity extends AppCompatActivity implements IActivity {
 
     }
 
-    private Emitter.Listener onCreateRoomResult = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    try {
-                        boolean isSuccess = data.getBoolean("isSuccess");
-                        if(isSuccess){
-                            createdRoom.setId(data.getString("room_id"));
-                            createdRoom.setHostUid(MyUser.getInstance().getUid());
-                            createdRoom.setState("joinable");
-                            Toast.makeText(RoomsActivity.this,data.getString("room_id"),Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            Toast.makeText(RoomsActivity.this,"failed",Toast.LENGTH_LONG).show();
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    finally {
-                        hideProgressDialog();
-                    }
-
-                }
-            });
-        }
-    };
-
     private Emitter.Listener onGetRoomPageResult = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    try {
 
-                        JSONArray arrRooms = null;
-                        arrRooms = data.getJSONArray("rooms");
-                        if(isUpdate)
-                            updateRoom(arrRooms);
-                        else
-                            addNewRoom(arrRooms);
-
-                        adapterRooms.notifyDataSetChanged();
-                        Log.d("abc", data.toString());
-                        Toast.makeText(RoomsActivity.this,"ok",Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
-        }
     };
 
     private void updateRoom(JSONArray arrRooms) {
@@ -320,46 +265,4 @@ public class RoomsActivity extends AppCompatActivity implements IActivity {
         }
     }
 
-    private Emitter.Listener onJoinRoomResult = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    try {
-                        boolean isSuccess = data.getBoolean("isSuccess");
-                        if(isSuccess){
-                           Toast.makeText(RoomsActivity.this,"ok",Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            Toast.makeText(RoomsActivity.this,"failed",Toast.LENGTH_LONG).show();
-
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    };
-
-    private Emitter.Listener onRoomUpdate = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    isUpdate=true;
-                    JSONObject data = new JSONObject();
-                    try {
-                        totalPage=data.getInt("total_page");
-                        getRoomPage(currentPage);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    };
 }

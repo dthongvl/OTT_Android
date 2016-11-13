@@ -1,37 +1,31 @@
 package vizion.com.ott.Activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import vizion.com.ott.Entities.IActivity;
-import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
+import vizion.com.ott.Utils.MyProgressDialog;
 import vizion.com.ott.Utils.SocketHelper;
 
 public class MainActivity extends AppCompatActivity implements IActivity {
 
-    private EditText txtEmail;
+    public EditText txtEmail;
     private EditText txtPassword;
     private Button btnSignIn;
     private Button btnSignUp;
-    private String roomData;
-    private ProgressDialog progressDialog;
+    public String roomData;
     private boolean getRoomSuccess = false;
 
     @Override
@@ -56,23 +50,10 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         */
     }
 
-    private void showProgressDialog() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage(getString(R.string.wait_login));
-        }
-        progressDialog.show();
-    }
 
-    private void hideProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
-    }
 
     private void signIn() {
-        showProgressDialog();
+        MyProgressDialog.getInstance(this, getString(R.string.wait_login)).showProgressDialog();
         String email = txtEmail.getText().toString();
         String password = txtPassword.getText().toString();
         JSONObject reqObject = new JSONObject();
@@ -97,63 +78,6 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         }
         return result;
     }
-
-    private Emitter.Listener onSignInResult = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    hideProgressDialog();
-                    JSONObject data = (JSONObject) args[0];
-
-                    try {
-
-                        boolean isSuccess = data.getBoolean("isSuccess");
-                        if (isSuccess) {
-
-                            JSONObject userJSON = data.getJSONObject("user");
-                            MyUser.getInstance().setUid(userJSON.getString("uid"));
-                            MyUser.getInstance().setName(userJSON.getString("name"));
-                            MyUser.getInstance().setEmail(txtEmail.getText().toString());
-                            MyUser.getInstance().setCoinCard(userJSON.getDouble("coin_card"));
-                            MyUser.getInstance().setNotiToken(userJSON.getString("noti_token"));
-                            MyUser.getInstance().setAvatar(userJSON.getString("avatar"));
-                            MyUser.getInstance().setHistories(userJSON.getString("histories"));
-                            MyUser.getInstance().setSocketId(userJSON.getString("socket_id"));
-                            MyUser.getInstance().setWins(userJSON.getJSONObject("statistics").getDouble("wins"));
-                            MyUser.getInstance().setLoses(userJSON.getJSONObject("statistics").getDouble("loses"));
-                            hideProgressDialog();
-
-                            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                            intent.putExtra("firstRoomPage",roomData);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            hideProgressDialog();
-                            Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    };
-
-    private Emitter.Listener onFirstRoomPageReceive = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    roomData=data.toString();
-                }
-            });
-        }
-    };
-
 
     @Override
     public void mapViewIDs() {

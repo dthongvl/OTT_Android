@@ -28,6 +28,7 @@ import java.io.InputStream;
 import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
+import vizion.com.ott.Utils.MyProgressDialog;
 import vizion.com.ott.Utils.SocketHelper;
 
 public class SignUpActivity extends AppCompatActivity implements IActivity {
@@ -42,9 +43,6 @@ public class SignUpActivity extends AppCompatActivity implements IActivity {
     private ImageView imgAvatar;
     private Button btnRegister;
 
-    private ProgressDialog progressDialog;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,20 +52,6 @@ public class SignUpActivity extends AppCompatActivity implements IActivity {
         this.addEventListeners();
     }
 
-    private void showProgressDialog() {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage(getString(R.string.wait_login));
-        }
-        progressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
-        }
-    }
     private boolean isValid() {
         boolean result = true;
         if (TextUtils.isEmpty(txtEmail.getText())) {
@@ -86,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity implements IActivity {
     }
 
     private void signUp() {
-        showProgressDialog();
+        MyProgressDialog.getInstance(this, getString(R.string.wait_sign_up)).showProgressDialog();
         String email = txtEmail.getText().toString();
         String password = txtPassword.getText().toString();
         String nickname = txtNickname.getText().toString();
@@ -102,39 +86,6 @@ public class SignUpActivity extends AppCompatActivity implements IActivity {
         }
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_SIGN_UP, reqObject);
     }
-
-
-    private Emitter.Listener onSignUpResult = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    boolean isSuccess;
-                    try {
-                        isSuccess = data.getBoolean("isSuccess");
-                        if (isSuccess) {
-                            hideProgressDialog();
-                            Intent intent = new Intent(SignUpActivity.this, MenuActivity.class);
-                            Toast.makeText(SignUpActivity.this, data.getString("uid"), Toast.LENGTH_LONG).show();
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            //Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_SHORT).show();
-                            txtEmail.setError("Email hoặc mật khẩu không đúng");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    finally {
-                        hideProgressDialog();
-                    }
-                }
-            });
-        }
-    };
-
 
 
     private void getAvatar(){
