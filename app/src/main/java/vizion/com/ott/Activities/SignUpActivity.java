@@ -2,6 +2,9 @@ package vizion.com.ott.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -151,9 +154,9 @@ public class SignUpActivity extends AppCompatActivity implements IActivity {
                 Uri selectedImageUri = data.getData();
                 Picasso.with(this.getBaseContext()).load(selectedImageUri).resize(imgAvatar.getWidth(),imgAvatar.getHeight()).centerCrop().into(imgAvatar);
                 try {
+
                     byteImage = getBytes(getContentResolver().openInputStream(selectedImageUri));
-                    if(byteImage != null)
-                        Toast.makeText(SignUpActivity.this,"ok",Toast.LENGTH_LONG).show();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

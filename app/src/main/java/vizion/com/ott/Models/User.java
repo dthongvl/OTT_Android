@@ -1,13 +1,8 @@
 package vizion.com.ott.Models;
 
 public class User {
-    private static User ourInstance = new User();
 
-    public static User getInstance() {
-        return ourInstance;
-    }
-
-    private User() {
+    public User() {
     }
 
     private String uid;
@@ -17,6 +12,8 @@ public class User {
     private String notiToken;
     private String avatar;
     private String histories;
+    private double wins;
+    private double loses;
     private String socketId;
 
     public String getUid() {
@@ -73,6 +70,22 @@ public class User {
 
     public void setHistories(String histories) {
         this.histories = histories;
+    }
+
+    public double getWins() {
+        return wins;
+    }
+
+    public void setWins(double wins) {
+        this.wins = wins;
+    }
+
+    public double getLoses() {
+        return loses;
+    }
+
+    public void setLoses(double loses) {
+        this.loses = loses;
     }
 
     public String getSocketId() {
