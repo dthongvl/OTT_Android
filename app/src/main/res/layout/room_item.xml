@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutRoom"
     android:padding="5dp"
     android:layout_width="150dp"
     android:layout_height="150dp"
-    android:paddingTop="5dp">
+    android:paddingTop="5dp"
+    android:background="@drawable/round_conner_layout"
+    android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:background="@color/gray"
+        android:id="@+id/layoutRoom">
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
@@ -16,7 +24,6 @@
         android:layout_alignParentStart="true"
         android:id="@+id/txtRoomName"
         android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:paddingTop="5dp"
         android:gravity="center" />
 
     <TextView
@@ -24,13 +31,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtMoneyBet"
-        android:gravity="center"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:textColor="@android:color/holo_red_dark"
         android:layout_alignRight="@+id/txtRoomName"
         android:layout_alignEnd="@+id/txtRoomName"
         android:layout_alignParentTop="false"
         android:layout_alignParentBottom="true"
-        android:paddingBottom="5dp" />
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_marginBottom="2dp"
+        android:layout_toEndOf="@+id/imageView3"
+        android:gravity="center_vertical"
+        android:paddingLeft="3dp" />
 
-</RelativeLayout>
+        <ImageView
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/imageView3"
+            android:adjustViewBounds="false"
+            android:background="@drawable/coins"
+            android:cropToPadding="true"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="2dp" />
+    </RelativeLayout>
+
+</LinearLayout>

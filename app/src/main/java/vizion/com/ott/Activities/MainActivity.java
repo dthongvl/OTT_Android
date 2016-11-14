@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vizion.com.ott.Entities.IActivity;
+import vizion.com.ott.Listeners.FirstRoomPageListener;
+import vizion.com.ott.Listeners.SignInResultListener;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
 import vizion.com.ott.Utils.MyProgressDialog;
@@ -89,8 +91,8 @@ public class MainActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void addEventListeners() {
-        SocketHelper.getInstance().addListener(Commands.CLIENT_RECEIVE_FIRST_ROOMS,onFirstRoomPageReceive);
-        SocketHelper.getInstance().addListener(Commands.CLIENT_SIGN_IN_RS, onSignInResult);
+        SocketHelper.getInstance().addListener(Commands.CLIENT_RECEIVE_FIRST_ROOMS, FirstRoomPageListener.getInstance(MainActivity.this));
+        SocketHelper.getInstance().addListener(Commands.CLIENT_SIGN_IN_RS, SignInResultListener.getInstance(MainActivity.this));
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

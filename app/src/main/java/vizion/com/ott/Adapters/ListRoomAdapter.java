@@ -1,6 +1,7 @@
 package vizion.com.ott.Adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -65,11 +67,12 @@ public class ListRoomAdapter extends BaseAdapter{
         if (room != null) {
             viewHolder.txtRoomName.setText(room.getRoomName());
             if(room.getState().equalsIgnoreCase("full"))
-                viewHolder.layoutRoom.setBackgroundResource(R.drawable.rooms_full);
-            else if(room.getState().equalsIgnoreCase("playing"))
-                viewHolder.layoutRoom.setBackgroundResource(R.drawable.rooms_playing);
+                viewHolder.layoutRoom.setBackgroundResource(R.drawable.room_full);
+            else if(room.getState().equalsIgnoreCase("playing")) {
+                viewHolder.layoutRoom.setBackgroundResource(R.drawable.room_playing);
+            }
             else
-                viewHolder.layoutRoom.setBackgroundResource(R.drawable.rooms);
+                viewHolder.layoutRoom.setBackgroundResource(R.drawable.room_joinable);
             viewHolder.txtMoneyBet.setText(String.valueOf(room.getMoneyBet()));
         }
 
@@ -80,5 +83,8 @@ public class ListRoomAdapter extends BaseAdapter{
         private TextView txtRoomName;
         private TextView txtMoneyBet;
         private RelativeLayout layoutRoom;
+
+        
+
     }
 }

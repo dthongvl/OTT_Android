@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +55,7 @@ public class UpdateProfileResultListener implements Emitter.Listener{
                 }
                 finally {
                     MyProgressDialog.getInstance(ourInstance.activity, "").hideProgressDialog();
+
                 }
             }
         });

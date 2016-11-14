@@ -18,7 +18,7 @@ public class Commands {
     public static final String CLIENT_GET_ROOM_BY_PAGE_RS="Client-Get-Room-By-Page-Rs";
     public static final String CLIENT_JOIN_ROOM="Client-Join-Room";
     public static final String CLIENT_JOIN_ROOM_RS="Client-Join-Room-Rs";
-    public static final String CLIENT_RECEIVE_UPDATE_ROOMS = "Server-Send-First-Rooms-Page";
+
 
 
 

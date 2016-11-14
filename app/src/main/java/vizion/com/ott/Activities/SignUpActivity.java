@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import vizion.com.ott.Entities.IActivity;
+import vizion.com.ott.Listeners.SignUpResultListener;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
 import vizion.com.ott.Utils.MyProgressDialog;
@@ -138,7 +139,7 @@ public class SignUpActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void addEventListeners() {
-        SocketHelper.getInstance().addListener(Commands.CLIENT_SIGN_UP_RS,onSignUpResult);
+        SocketHelper.getInstance().addListener(Commands.CLIENT_SIGN_UP_RS, SignUpResultListener.getInstance(SignUpActivity.this));
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override

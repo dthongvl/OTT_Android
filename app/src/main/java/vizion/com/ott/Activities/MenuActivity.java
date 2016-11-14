@@ -40,30 +40,11 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        getFirstRoomPage();
         this.mapViewIDs();
         this.addEventListeners();
 
 
     }
-
-    private void getFirstRoomPage() {
-        Intent intent = getIntent();
-        try {
-            JSONObject roomdata = new JSONObject(intent.getStringExtra("firstRoomPage"));
-            totalPage = roomdata.getInt("total_page");
-            JSONArray arrRooms = roomdata.getJSONArray("rooms");
-            listRooms = new ArrayList<>();
-            for (int roomOrder = 0; roomOrder < arrRooms.length(); ++roomOrder) {
-                listRooms.add(new Room(arrRooms.getJSONObject(roomOrder)));
-            }
-
-        }
-            catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private void signOut() {
         JSONObject reqObject = new JSONObject();
@@ -97,8 +78,6 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void addEventListeners() {
-        SocketHelper.getInstance().addListener(Commands.CLIENT_RECEIVE_FIRST_ROOMS, onListRooms);
-
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

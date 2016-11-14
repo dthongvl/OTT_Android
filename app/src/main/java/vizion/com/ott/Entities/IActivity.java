@@ -5,6 +5,5 @@ package vizion.com.ott.Entities;
  */
 public interface IActivity {
     void mapViewIDs ();
-
     void addEventListeners ();
 }
