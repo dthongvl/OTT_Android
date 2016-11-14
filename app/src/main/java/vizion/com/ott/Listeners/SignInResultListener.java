@@ -56,14 +56,13 @@ public class SignInResultListener implements Emitter.Listener{
                         MyUser.getInstance().setWins(userJSON.getJSONObject("statistics").getDouble("wins"));
                         MyUser.getInstance().setLoses(userJSON.getJSONObject("statistics").getDouble("loses"));
                         MyProgressDialog.getInstance(ourInstance.activity, "").hideProgressDialog();
-
                         Intent intent = new Intent(ourInstance.activity, MenuActivity.class);
-                        intent.putExtra("firstRoomPage", MyRoom.getInstance().getRoomData());
                         ourInstance.activity.startActivity(intent);
                         ourInstance.activity.finish();
                     } else {
                         MyProgressDialog.getInstance(ourInstance.activity, "").hideProgressDialog();
-                        Toast.makeText(ourInstance.activity, data.getString("message"), Toast.LENGTH_SHORT).show();
+                        TextView txtEmail = (TextView) ourInstance.activity.findViewById(R.id.txtEmail);
+                        txtEmail.setError("Email hoặc mật khẩu không đúng!");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -32,6 +32,7 @@ import java.io.InputStream;
 import java.util.logging.SocketHandler;
 
 import vizion.com.ott.Entities.IActivity;
+import vizion.com.ott.Listeners.UpdateProfileResultListener;
 import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
@@ -164,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity implements IActivity {
     @Override
     public void addEventListeners() {
 
-        SocketHelper.getInstance().addListener(Commands.CLIENT_UPDATE_PROFILE_RS,onUpdateResult);
+        SocketHelper.getInstance().addListener(Commands.CLIENT_UPDATE_PROFILE_RS, UpdateProfileResultListener.getInstance(ProfileActivity.this));
 
         btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,7 +195,6 @@ public class ProfileActivity extends AppCompatActivity implements IActivity {
 
 
         });
-
 
 
         imgAvatar.setOnClickListener(new View.OnClickListener() {

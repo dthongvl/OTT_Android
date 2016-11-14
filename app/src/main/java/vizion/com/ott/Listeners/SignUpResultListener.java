@@ -40,13 +40,11 @@ public class SignUpResultListener implements Emitter.Listener {
                     isSuccess = data.getBoolean("isSuccess");
                     TextView txtEmail = (TextView) ourInstance.activity.findViewById(R.id.txtEmail);
                     if (isSuccess) {
-                        MyProgressDialog.getInstance(ourInstance.activity, "").hideProgressDialog();
                         Intent intent = new Intent(ourInstance.activity, MenuActivity.class);
                         Toast.makeText(ourInstance.activity, data.getString("uid"), Toast.LENGTH_LONG).show();
                         ourInstance.activity.startActivity(intent);
                         ourInstance.activity.finish();
                     } else {
-                        //Toast.makeText(MainActivity.this, data.getString("message"), Toast.LENGTH_SHORT).show();
                         txtEmail.setError("Email hoặc mật khẩu không đúng");
                     }
                 } catch (JSONException e) {

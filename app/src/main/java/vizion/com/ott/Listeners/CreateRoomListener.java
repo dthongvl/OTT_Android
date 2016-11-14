@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import vizion.com.ott.Activities.RoomsActivity;
 import vizion.com.ott.Models.MyRoom;
 import vizion.com.ott.Models.MyUser;
+import vizion.com.ott.Models.Room;
 import vizion.com.ott.Utils.MyProgressDialog;
 
 /**
@@ -18,10 +19,12 @@ import vizion.com.ott.Utils.MyProgressDialog;
  */
 public class CreateRoomListener implements Emitter.Listener {
     private Activity activity;
+    private Room createdRoom;
     private static CreateRoomListener ourInstance = new CreateRoomListener();
 
     public static CreateRoomListener getInstance(Activity activity) {
         ourInstance.activity = activity;
+        ourInstance.createdRoom = new Room();
         return ourInstance;
     }
 

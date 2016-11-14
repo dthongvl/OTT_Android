@@ -1,90 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:background="@android:color/transparent">
 
-    <TextView
-        android:text="Create room"
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
+        android:id="@+id/layoutTop"
+        android:background="@android:color/transparent"
         android:layout_alignParentTop="true"
-        android:textAllCaps="true"
-        android:textSize="30sp"
-        android:textStyle="normal|bold|italic"
-        android:gravity="center"
-        android:padding="5dp" />
+        android:layout_gravity="center_horizontal">
 
-    <TextView
-        android:text="Name:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView3"
-        android:padding="5dp" />
-
-    <TextView
-        android:text="Bet: "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_below="@+id/txtRoomName"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:padding="5dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/txtRoomName"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_toEndOf="@+id/textView2"
-        android:padding="5dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/txtCoinBet"
-        android:layout_below="@+id/txtRoomName"
-        android:layout_toEndOf="@+id/textView"
-        android:padding="5dp" />
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="0,1"
-        android:layout_below="@+id/txtCoinBet">
-
-        <TableRow
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp">
+            android:src="@drawable/create_room"
+            android:background="@android:color/transparent"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFFFFF"
+            android:adjustViewBounds="false"
+            app:civ_border_overlay="false"
+            android:id="@+id/imgAdd"
+            android:foregroundGravity="center"
+            android:layout_gravity="center"
+            android:layout_height="90dp" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnCancel"
-                android:layout_column="0" />
+    </FrameLayout>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnCreate"
-                android:layout_column="1" />
-        </TableRow>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutButton"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/round_conner_layout"
+        android:layout_gravity="center_horizontal">
 
-    </TableLayout>
+        <TextView
+            android:text="Create room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:layout_alignParentTop="false"
+            android:textAllCaps="true"
+            android:textSize="30sp"
+            android:textStyle="normal|bold|italic"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_below="@+id/layoutHalftop"
+            android:layout_marginTop="60dp"
+            android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/txtRoomName"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="false"
+                android:padding="5dp"
+                android:hint="Room name"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentLeft="false"
+            android:background="@drawable/red_boder_editext"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical|center"
+            android:layout_centerHorizontal="true"
+            android:layout_width="240dp" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancel"
+            android:layout_column="0"
+            android:layout_below="@+id/btnCreate"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="260dp" />
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCreate"
+            android:layout_column="1"
+            android:layout_below="@+id/txtCoinBet"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="260dp" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/txtCoinBet"
+            android:layout_below="@+id/txtRoomName"
+            android:padding="5dp"
+            android:hint="Coin bet"
+            android:background="@drawable/yelow_boder_editext"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical|center"
+            android:layout_centerHorizontal="true"
+            android:layout_width="240dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:id="@+id/layoutHalftop"
+        android:layout_gravity="top"
+        android:background="@android:color/transparent"
+        android:layout_height="30dp">
+
+    </LinearLayout>
+
+
+</FrameLayout>
