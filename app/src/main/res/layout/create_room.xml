@@ -49,7 +49,6 @@
             android:textStyle="normal|bold|italic"
             android:gravity="center"
             android:padding="5dp"
-            android:layout_below="@+id/layoutHalftop"
             android:layout_marginTop="60dp"
             android:layout_centerHorizontal="true" />
 
