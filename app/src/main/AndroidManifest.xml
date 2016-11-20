@@ -23,7 +23,8 @@
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.SignUpActivity" />
         <activity android:name=".Activities.RoomsActivity" />
-        <activity android:name=".Activities.WaitActivity"></activity>
+        <activity android:name=".Activities.WaitActivity" />
+        <activity android:name=".Activities.PlayActivity"></activity>
     </application>
 
 </manifest>

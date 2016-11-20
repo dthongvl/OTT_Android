@@ -67,7 +67,7 @@
             android:layout_height="15dp"
             app:srcCompat="@drawable/coins"
             android:id="@+id/imgGuestCoin"
-            android:layout_below="@+id/imgGuestAvatar"
+            android:layout_below="@+id/imgEnemyAvatar"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="30dp" />
@@ -75,16 +75,16 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/imgGuestAvatar"
+            android:id="@+id/imgEnemyAvatar"
             android:background="@drawable/avatar"
-            android:layout_below="@+id/txtGuestName"
+            android:layout_below="@+id/txtEnemyName"
             android:layout_marginLeft="20dp" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtGuestName"
+            android:id="@+id/txtEnemyName"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
@@ -99,8 +99,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtReady"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/imgGuestAvatar"
-            android:layout_below="@+id/txtGuestName"
+            android:layout_toRightOf="@+id/imgEnemyAvatar"
+            android:layout_below="@+id/txtEnemyName"
             android:gravity="center"
             android:layout_marginTop="35dp"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
@@ -113,7 +113,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtGuestCoin"
             android:layout_toRightOf="@id/imgGuestCoin"
-            android:layout_below="@+id/imgGuestAvatar"
+            android:layout_below="@+id/imgEnemyAvatar"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textSize="14sp"
             android:textColor="#FF0"
@@ -142,7 +142,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:srcCompat="@drawable/avatar"
-            android:id="@+id/imgHostAvatar"
+            android:id="@+id/imgUserAvatar"
             android:layout_below="@+id/txtHostName"
             android:layout_marginLeft="20dp" />
 
@@ -151,7 +151,7 @@
             android:layout_height="15dp"
             app:srcCompat="@drawable/coins"
             android:id="@+id/imgHostCoin"
-            android:layout_below="@+id/imgHostAvatar"
+            android:layout_below="@+id/imgUserAvatar"
             android:layout_marginLeft="30dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
@@ -174,7 +174,7 @@
             android:layout_height="50dp"
             android:id="@+id/btnAction"
             android:background="@drawable/button14"
-            android:layout_toRightOf="@+id/imgHostAvatar"
+            android:layout_toRightOf="@+id/imgUserAvatar"
             android:layout_below="@+id/txtHostName"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="35dp" />
@@ -184,7 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtHostCoin"
-            android:layout_below="@+id/imgHostAvatar"
+            android:layout_below="@+id/imgUserAvatar"
             android:layout_toRightOf="@+id/imgHostCoin"
             android:textColor="#FF0"
             android:layout_marginTop="10dp"

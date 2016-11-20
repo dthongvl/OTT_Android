@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_wait"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="vizion.com.ott.Activities.WaitActivity"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/opacity_layout"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/Icon"
+            android:id="@+id/imgEnemyChoice"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/txtEnemyReady"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/avatar"
+            android:id="@+id/imgEnemyAvatar" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtEnemyName"
+            android:layout_toRightOf="@+id/imgEnemyAvatar"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:textColor="@color/red"
+            android:layout_marginLeft="10dp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtEnemyReady"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/txtEnemyName"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:textSize="18sp"
+            android:textStyle="normal|bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/opacity_layout"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Time: 15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtTime"
+                android:layout_weight="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:gravity="center"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="Win"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtWin"
+                android:layout_weight="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:gravity="center"
+                android:textStyle="normal|bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtUserWin"
+                android:layout_weight="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textColor="@color/green"
+                android:gravity="center"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="BO 15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtBo"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textSize="22sp"
+                android:textColor="#ffff00"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtEnemyWin"
+                android:layout_weight="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textColor="@color/red"
+                android:gravity="center"
+                android:textStyle="normal|bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/opacity_layout"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:id="@+id/btnReady"
+                android:layout_weight="1"
+                android:background="@drawable/button8"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/Icon"
+                android:id="@+id/imgUserChoice"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:id="@+id/btnSubmit"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:background="@drawable/button13"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp">
+
+            <ImageButton
+                android:id="@+id/btnScissor"
+                android:layout_weight="1"
+                android:background="@drawable/twofingersup"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp" />
+
+            <ImageButton
+                android:id="@+id/btnHammer"
+                android:layout_weight="1"
+                android:background="@drawable/fist"
+                android:layout_height="match_parent"
+                android:layout_width="50dp" />
+
+            <ImageButton
+                android:id="@+id/btnBag"
+                android:layout_weight="1"
+                android:background="@drawable/fivefingers"
+                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/avatar"
+                android:id="@+id/imgUserAvatar"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtUserReady"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtUserName"
+                android:layout_below="@+id/txtUserReady"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textColor="@color/green"
+                android:textStyle="normal|bold" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

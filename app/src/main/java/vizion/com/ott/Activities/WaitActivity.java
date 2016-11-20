@@ -37,10 +37,10 @@ public class WaitActivity extends AppCompatActivity implements IActivity {
     public void mapViewIDs() {
         txtHostName = (TextView) findViewById(R.id.txtHostName);
         txtHostCoin = (TextView) findViewById(R.id.txtHostCoin);
-        imgHostAvatar = (ImageView) findViewById(R.id.imgHostAvatar);
-        txtGuestName = (TextView) findViewById(R.id.txtGuestName);
+        imgHostAvatar = (ImageView) findViewById(R.id.imgUserAvatar);
+        txtGuestName = (TextView) findViewById(R.id.txtEnemyName);
         txtGuestCoin = (TextView) findViewById(R.id.txtGuestCoin);
-        imgGuestAvatar = (ImageView) findViewById(R.id.imgGuestAvatar);
+        imgGuestAvatar = (ImageView) findViewById(R.id.imgEnemyAvatar);
         txtRoomName = (TextView) findViewById(R.id.txtRoomName);
         txtCoinBet = (TextView) findViewById(R.id.txtCoinBet);
         txtType = (TextView) findViewById(R.id.txtType);
