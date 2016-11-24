@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.Models.Room;
+import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
 import vizion.com.ott.Utils.SocketHelper;
@@ -31,10 +32,6 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
     private Button btnProfile;
     private Button btnAbout;
 
-    private ArrayList<Room> listRooms;
-    private int totalPage;
-
-    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +50,7 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        RoomList.getInstance().clearListRooms();
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_SIGN_OUT, reqObject);
         Intent intent = new Intent(MenuActivity.this, MainActivity.class);
         startActivity(intent);
@@ -61,8 +59,6 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
 
     private void roomsActivity() {
         Intent intent = new Intent(MenuActivity.this, RoomsActivity.class);
-        intent.putExtra("total_page", totalPage);
-        intent.putParcelableArrayListExtra("list_rooms", listRooms);
         startActivity(intent);
     }
 

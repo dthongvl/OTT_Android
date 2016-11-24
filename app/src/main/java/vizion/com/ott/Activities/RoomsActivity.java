@@ -1,11 +1,8 @@
 package vizion.com.ott.Activities;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,21 +18,16 @@ import android.widget.ImageButton;
 import android.widget.TabHost;
 import android.widget.Toast;
 
-import com.github.nkzawa.emitter.Emitter;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 import vizion.com.ott.Adapters.ListRoomAdapter;
 import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.Listeners.CreateRoomListener;
 import vizion.com.ott.Listeners.GetRoomPageResultListener;
 import vizion.com.ott.Listeners.JoinRoomListener;
 import vizion.com.ott.Models.MyRoom;
+import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.Models.Room;
 import vizion.com.ott.R;
@@ -46,12 +38,9 @@ import vizion.com.ott.Utils.SocketHelper;
 public class RoomsActivity extends AppCompatActivity implements IActivity {
     
     private ImageButton btnCreateRoom;
-    private TabHost tabHost;
-        GridView gvListRoom;
+    GridView gvListRoom;
     ListRoomAdapter adapterRooms;
-    private Room createdRoom;
 
-    private boolean isUpdate=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,32 +48,20 @@ public class RoomsActivity extends AppCompatActivity implements IActivity {
         setContentView(R.layout.activity_rooms);
         this.mapViewIDs();
         this.addEventListeners();
-        
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapterRooms.notifyDataSetChanged();
     }
 
     @Override
     public void mapViewIDs() {
         gvListRoom = (GridView) findViewById(R.id.gvListRoom);
-        adapterRooms = new ListRoomAdapter(RoomsActivity.this, MyRoom.getInstance().getListRooms());
-        MyRoom.getInstance().setAdapter(adapterRooms);
+        adapterRooms = new ListRoomAdapter(RoomsActivity.this, RoomList.getInstance().getListRooms());
+        RoomList.getInstance().setAdapter(adapterRooms);
         gvListRoom.setAdapter(adapterRooms);
-
-
-        /*tabHost = (TabHost)findViewById(R.id.tabPlay);
-        tabHost.setup();
-
-        //Tab 1
-        TabHost.TabSpec spec = tabHost.newTabSpec("Rooms");
-        spec.setContent(R.id.tabRooms);
-        spec.setIndicator("Rooms");
-        tabHost.addTab(spec);
-
-        //Tab 2
-        spec = tabHost.newTabSpec("Friends");
-        spec.setContent(R.id.tabFriends);
-        spec.setIndicator("Friends");
-        tabHost.addTab(spec);*/
         btnCreateRoom = (ImageButton) findViewById(R.id.btnCreateRoom);
     }
 
@@ -92,7 +69,7 @@ public class RoomsActivity extends AppCompatActivity implements IActivity {
     public void addEventListeners() {
         SocketHelper.getInstance().addListener(Commands.CLIENT_CREATE_ROOM_RS, CreateRoomListener.getInstance(RoomsActivity.this));
         SocketHelper.getInstance().addListener(Commands.CLIENT_GET_ROOM_BY_PAGE_RS, GetRoomPageResultListener.getInstance(RoomsActivity.this));
-        SocketHelper.getInstance().addListener(Commands.CLIENT_JOIN_ROOM_RS, JoinRoomListener.getInstance(RoomsActivity.this));
+        SocketHelper.getInstance().addListener(Commands.CLIENT_JOIN_ROOM_RS,JoinRoomListener.getInstance(RoomsActivity.this));
         btnCreateRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,24 +85,36 @@ public class RoomsActivity extends AppCompatActivity implements IActivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                Log.d("item", String.valueOf(firstVisibleItem)+"a");
+                Log.d("item", String.valueOf(visibleItemCount)+"b");
+
                 if(firstVisibleItem + visibleItemCount >= totalItemCount){
-                    if(MyRoom.getInstance().getLoadedPage() <MyRoom.getInstance().getTotalPage() ){
-                        MyRoom.getInstance().setLoadedPage(MyRoom.getInstance().getLoadedPage()+1);
-                        MyRoom.getInstance().getRoomPage(MyRoom.getInstance().getLoadedPage());
-                        Log.d("page", String.valueOf(MyRoom.getInstance().getTotalPage()));
+                    if(RoomList.getInstance().getLoadedPage() < RoomList.getInstance().getTotalPage()
+                            &&RoomList.getInstance().getCurrentPage()==RoomList.getInstance().getLoadedPage()){
+                        RoomList.getInstance().setLoadedPage(RoomList.getInstance().getLoadedPage()+1);
+                        RoomList.getInstance().getRoomPage(RoomList.getInstance().getLoadedPage());
+                        Log.d("page", String.valueOf(RoomList.getInstance().getLoadedPage()));
                     }
                 }
-                if(MyRoom.getInstance().getCurrentPage()<=MyRoom.getInstance().getLoadedPage()) {
-                    MyRoom.getInstance().setCurrentPage(((firstVisibleItem + visibleItemCount) / 10) + 1);
-                    Log.d("curPage", String.valueOf(MyRoom.getInstance().getCurrentPage()));
+                if(RoomList.getInstance().getCurrentPage()<= RoomList.getInstance().getLoadedPage()) {
+
+                    RoomList.getInstance().setCurrentPage(((firstVisibleItem + visibleItemCount) / 10)+1);
+                    Log.d("curPage", String.valueOf(RoomList.getInstance().getCurrentPage()));
                 }
+
+
             }
         });
 
         gvListRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                joinRoom(position);
+                if(RoomList.getInstance().getListRooms().get(position).getState().equalsIgnoreCase("joinable"))
+                    joinRoom(position);
+                else{
+                    Toast.makeText(RoomsActivity.this,"Phòng đầy",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -133,13 +122,18 @@ public class RoomsActivity extends AppCompatActivity implements IActivity {
 
     private void joinRoom(int position) {
         JSONObject reqObject = new JSONObject();
+        MyRoom.getInstance().setId(RoomList.getInstance().getListRooms().get(position).getId());
+        MyRoom.getInstance().setRoomName(RoomList.getInstance().getListRooms().get(position).getRoomName());
+        MyRoom.getInstance().setMoneyBet(RoomList.getInstance().getListRooms().get(position).getMoneyBet());
+        MyRoom.getInstance().setHost(false);
         try {
-            reqObject.put("room_id",MyRoom.getInstance().getListRooms().get(position).getId());
+            reqObject.put("room_id", RoomList.getInstance().getListRooms().get(position).getId());
             reqObject.put("uid",MyUser.getInstance().getUid());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_JOIN_ROOM,reqObject);
+        MyProgressDialog.getInstance(RoomsActivity.this,"Đang vào phòng").showProgressDialog();
     }
 
 
@@ -184,9 +178,12 @@ public class RoomsActivity extends AppCompatActivity implements IActivity {
                MyProgressDialog.getInstance(RoomsActivity.this,getString(R.string.createRoom)).showProgressDialog();
                String roomName = txtRoomName.getText().toString();
                Double coinBet = Double.parseDouble(txtCoinBet.getText().toString());
-               createdRoom= new Room();
-               createdRoom.setRoomName(roomName);
-               createdRoom.setMoneyBet(coinBet);
+               MyRoom.getInstance().setRoomName(roomName);
+               MyRoom.getInstance().setMoneyBet(coinBet);
+               MyRoom.getInstance().setHostUid(MyUser.getInstance().getUid());
+               MyRoom.getInstance().setHostReady(false);
+               MyRoom.getInstance().setHost(true);
+               MyRoom.getInstance().setBestOf(5);
                JSONObject regObject = new JSONObject();
                try {
                    regObject.put("room_name",roomName);
@@ -212,28 +209,4 @@ public class RoomsActivity extends AppCompatActivity implements IActivity {
        });
 
     }
-
-
-   /* private void updateRoom(JSONArray arrRooms) {
-        isUpdate=false;
-        try {
-            for (int roomOrder = currentPage-1; roomOrder < arrRooms.length(); roomOrder++) {
-                listRooms.set(roomOrder,new Room(arrRooms.getJSONObject(roomOrder)));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void addNewRoom(JSONArray arrRooms) {
-
-        try {
-            for (int roomOrder = 0; roomOrder < arrRooms.length(); roomOrder++) {
-                listRooms.add(new Room(arrRooms.getJSONObject(roomOrder)));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-*/
 }

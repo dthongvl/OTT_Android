@@ -22,7 +22,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:srcCompat="@drawable/Icon"
+            app:srcCompat="@drawable/icon"
             android:id="@+id/imgEnemyChoice"
             android:layout_centerInParent="true"
             android:layout_below="@+id/txtEnemyReady"/>
@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtEnemyName"
             android:layout_toRightOf="@+id/imgEnemyAvatar"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@color/red"
             android:layout_marginLeft="10dp"
             android:textStyle="normal|bold" />
@@ -51,7 +50,6 @@
             android:id="@+id/txtEnemyReady"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/txtEnemyName"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textSize="18sp"
             android:textStyle="normal|bold" />
     </RelativeLayout>
@@ -78,7 +76,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txtTime"
                 android:layout_weight="1"
-                android:textAppearance="@android:style/TextAppearance.Material.Large"
                 android:gravity="center"
                 android:textStyle="normal|bold" />
 
@@ -88,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txtWin"
                 android:layout_weight="1"
-                android:textAppearance="@android:style/TextAppearance.Material.Large"
                 android:gravity="center"
                 android:textStyle="normal|bold" />
 
@@ -105,7 +101,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txtUserWin"
                 android:layout_weight="1"
-                android:textAppearance="@android:style/TextAppearance.Material.Large"
                 android:textColor="@color/green"
                 android:gravity="center"
                 android:textStyle="normal|bold" />
@@ -117,7 +112,6 @@
                 android:id="@+id/txtBo"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@android:style/TextAppearance.Material.Large"
                 android:textSize="22sp"
                 android:textColor="#ffff00"
                 android:textStyle="normal|bold" />
@@ -128,7 +122,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txtEnemyWin"
                 android:layout_weight="1"
-                android:textAppearance="@android:style/TextAppearance.Material.Large"
                 android:textColor="@color/red"
                 android:gravity="center"
                 android:textStyle="normal|bold" />
@@ -154,7 +147,7 @@
                 android:layout_width="100dp"
                 android:id="@+id/btnReady"
                 android:layout_weight="1"
-                android:background="@drawable/button8"
+                android:background="@drawable/ready"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp" />
@@ -162,7 +155,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:srcCompat="@drawable/Icon"
+                app:srcCompat="@drawable/icon"
                 android:id="@+id/imgUserChoice"
                 android:layout_weight="1" />
 
@@ -225,7 +218,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtUserReady"
-                android:textAppearance="@android:style/TextAppearance.Material.Large"
                 android:textStyle="normal|bold" />
 
             <TextView
@@ -234,7 +226,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txtUserName"
                 android:layout_below="@+id/txtUserReady"
-                android:textAppearance="@android:style/TextAppearance.Material.Large"
                 android:textColor="@color/green"
                 android:textStyle="normal|bold" />
         </RelativeLayout>

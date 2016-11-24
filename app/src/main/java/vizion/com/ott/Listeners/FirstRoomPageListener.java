@@ -1,6 +1,7 @@
 package vizion.com.ott.Listeners;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.github.nkzawa.emitter.Emitter;
 
@@ -10,8 +11,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import vizion.com.ott.Adapters.ListRoomAdapter;
-import vizion.com.ott.Models.MyRoom;
+import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.Models.Room;
 
 /**
@@ -37,18 +37,19 @@ public class FirstRoomPageListener implements Emitter.Listener{
 
                 JSONObject data = (JSONObject) args[0];
                 try {
-                    MyRoom.getInstance().setTotalPage(data.getInt("total_page"));
+                    RoomList.getInstance().setTotalPage(data.getInt("total_page"));
                     JSONArray arrRooms = data.getJSONArray("rooms");
+                    Log.d("roompage",data.toString() );
                     ArrayList<Room> firstPage = new ArrayList<Room>();
                     for(int roomIndex =0; roomIndex < arrRooms.length();roomIndex++){
                         firstPage.add(new Room(arrRooms.getJSONObject(roomIndex)));
                     }
 
-                    if(MyRoom.getInstance().getListRooms().size()>0){
-                        MyRoom.getInstance().setUpdate(true);
-                        MyRoom.getInstance().getRoomPage(MyRoom.getInstance().getCurrentPage());
+                    if(RoomList.getInstance().getListRooms().size()>0){
+                        RoomList.getInstance().setUpdate(true);
+                        RoomList.getInstance().getRoomPage(RoomList.getInstance().getCurrentPage());
                     }
-                    MyRoom.getInstance().setFirstPageRooms(firstPage);
+                    RoomList.getInstance().setFirstPageRooms(firstPage);
 
                     }
                 catch (JSONException e) {
