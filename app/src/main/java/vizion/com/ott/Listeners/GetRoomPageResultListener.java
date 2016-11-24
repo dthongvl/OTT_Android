@@ -1,8 +1,6 @@
 package vizion.com.ott.Listeners;
 
 import android.app.Activity;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 
@@ -12,8 +10,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import vizion.com.ott.Activities.RoomsActivity;
-import vizion.com.ott.Models.MyRoom;
+import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.Models.Room;
 
 /**
@@ -45,7 +42,7 @@ public class GetRoomPageResultListener implements Emitter.Listener {
                     for(int roomIndex =0; roomIndex < arrRooms.length();roomIndex++){
                         roomPage.add(new Room(arrRooms.getJSONObject(roomIndex)));
                     }
-                    MyRoom.getInstance().updateRoom(roomPage);
+                    RoomList.getInstance().updateRoom(roomPage);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

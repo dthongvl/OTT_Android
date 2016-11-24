@@ -15,6 +15,8 @@ public class Room implements Parcelable {
     private boolean hostReady;
     private String guestUid;
     private boolean guestReady;
+    private double bestOf;
+    //private
 
     public Room() {
     }
@@ -28,6 +30,7 @@ public class Room implements Parcelable {
             JSONObject member = room.getJSONObject("host");
             this.hostUid = member.getString("uid");
             this.hostReady = member.getBoolean("ready");
+            this.bestOf = room.getDouble("best_of");
             if (!this.state.equals("joinable")) {
                 member = room.getJSONObject("guest");
                 this.guestUid = member.getString("uid");
@@ -102,6 +105,14 @@ public class Room implements Parcelable {
         this.guestReady = guestReady;
     }
 
+    public double getBestOf() {
+        return bestOf;
+    }
+
+    public void setBestOf(double bestOf) {
+        this.bestOf = bestOf;
+    }
+
     protected Room(Parcel in) {
         id = in.readString();
         roomName = in.readString();
@@ -111,6 +122,7 @@ public class Room implements Parcelable {
         hostReady = in.readByte() != 0x00;
         guestUid = in.readString();
         guestReady = in.readByte() != 0x00;
+        bestOf= in.readDouble();
     }
 
     @Override
@@ -124,6 +136,7 @@ public class Room implements Parcelable {
         dest.writeString(roomName);
         dest.writeString(state);
         dest.writeDouble(moneyBet);
+        dest.writeDouble(bestOf);
         dest.writeString(hostUid);
         dest.writeByte((byte) (hostReady ? 0x01 : 0x00));
         dest.writeString(guestUid);

@@ -57,6 +57,7 @@ public class ListRoomAdapter extends BaseAdapter{
             viewHolder.txtRoomName = (TextView) convertView.findViewById(R.id.txtRoomName);
             viewHolder.layoutRoom = (RelativeLayout) convertView.findViewById(R.id.layoutRoom);
             viewHolder.txtMoneyBet = (TextView) convertView.findViewById(R.id.txtMoneyBet);
+            viewHolder.txtBestOf= (TextView) convertView.findViewById(R.id.txtBO);
 
             convertView.setTag(viewHolder);
         } else {
@@ -74,6 +75,7 @@ public class ListRoomAdapter extends BaseAdapter{
             else
                 viewHolder.layoutRoom.setBackgroundResource(R.drawable.room_joinable);
             viewHolder.txtMoneyBet.setText(String.valueOf(room.getMoneyBet()));
+            viewHolder.txtBestOf.setText(String.valueOf(room.getBestOf()));
         }
 
         return convertView;
@@ -83,8 +85,9 @@ public class ListRoomAdapter extends BaseAdapter{
         private TextView txtRoomName;
         private TextView txtMoneyBet;
         private RelativeLayout layoutRoom;
+        private TextView txtBestOf;
 
-        
+
 
     }
 }

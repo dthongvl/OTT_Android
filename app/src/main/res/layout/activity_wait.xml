@@ -5,190 +5,238 @@
     android:id="@+id/activity_wait"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="vizion.com.ott.Activities.WaitActivity"
-    android:background="@drawable/background">
-
+    tools:context="vizion.com.ott.Activities.WaitActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/opacity_layout">
-
-        <TextView
-            android:text="Phong VIP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/txtRoomName"
-            android:textColor="@color/red"
-            android:textSize="36sp"
-            android:textStyle="normal|bold" />
-
-        <TextView
-            android:text="Bo 3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtCoinBet"
-            android:layout_marginRight="54dp"
-            android:layout_marginEnd="54dp"
-            android:layout_below="@+id/txtRoomName"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
-            android:textColor="@android:color/white" />
-
-        <TextView
-            android:text="$5000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtType"
-            android:layout_below="@+id/txtRoomName"
-            android:layout_toLeftOf="@+id/txtRoomName"
-            android:layout_toStartOf="@+id/txtRoomName"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
-            android:textColor="@color/red"
-            android:textStyle="normal|bold" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/opacity_layout"
-        android:layout_marginTop="20dp">
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            app:srcCompat="@drawable/coins"
-            android:id="@+id/imgGuestCoin"
-            android:layout_below="@+id/imgEnemyAvatar"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp" />
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/imgEnemyAvatar"
-            android:background="@drawable/avatar"
-            android:layout_below="@+id/txtEnemyName"
-            android:layout_marginLeft="20dp" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtEnemyName"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
-            android:textStyle="normal|bold"
-            android:textColor="@color/red"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtReady"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/imgEnemyAvatar"
-            android:layout_below="@+id/txtEnemyName"
-            android:gravity="center"
-            android:layout_marginTop="35dp"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
-            android:textSize="36sp"
-            android:textColor="@color/green" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtGuestCoin"
-            android:layout_toRightOf="@id/imgGuestCoin"
-            android:layout_below="@+id/imgEnemyAvatar"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
-            android:textSize="14sp"
-            android:textColor="#FF0"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp" />
-    </RelativeLayout>
-
-    <TextView
-        android:text="VS"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:gravity="center"
-        android:textAppearance="@android:style/TextAppearance.Material.Large"
-        android:textColor="@android:color/white"
-        android:textSize="36sp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/opacity_layout">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:srcCompat="@drawable/avatar"
-            android:id="@+id/imgUserAvatar"
-            android:layout_below="@+id/txtHostName"
-            android:layout_marginLeft="20dp" />
-
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            app:srcCompat="@drawable/coins"
-            android:id="@+id/imgHostCoin"
-            android:layout_below="@+id/imgUserAvatar"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtHostName"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textAppearance="@android:style/TextAppearance.Material.Large"
-            android:textColor="@color/green"
-            android:textStyle="normal|bold"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp" />
+        android:weightSum="1"
+        android:layout_weight="2"
+        android:padding="2dp">
 
         <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:id="@+id/btnAction"
-            android:background="@drawable/button14"
-            android:layout_toRightOf="@+id/imgUserAvatar"
-            android:layout_below="@+id/txtHostName"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="35dp" />
-
-        <TextView
-            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtHostCoin"
-            android:layout_below="@+id/imgUserAvatar"
-            android:layout_toRightOf="@+id/imgHostCoin"
-            android:textColor="#FF0"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp" />
+            android:id="@+id/btnUpdateRoom"
+            android:background="@drawable/edit_room"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
 
+        <ImageButton
+            android:id="@+id/btnLeave"
+            android:background="@drawable/signout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/background"
+        android:layout_weight="8">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/opacity_layout">
+
+            <TextView
+                android:text="Phong VIP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/txtRoomName"
+                android:textColor="@color/red"
+                android:textSize="36sp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:text="Bo 3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtType"
+                android:layout_marginRight="54dp"
+                android:layout_marginEnd="54dp"
+                android:layout_below="@+id/txtRoomName"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:text="$5000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtCoinBet"
+                android:layout_below="@+id/txtRoomName"
+                android:layout_toLeftOf="@+id/txtRoomName"
+                android:layout_toStartOf="@+id/txtRoomName"
+                android:textColor="@color/red"
+                android:textStyle="normal|bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/opacity_layout"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:text="Waiting for another player . . ."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtWaiting"
+                android:layout_centerInParent="true"
+                android:textSize="24sp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                app:srcCompat="@drawable/coins"
+                android:id="@+id/imgGuestCoin"
+                android:layout_below="@+id/imgGuestAvatar"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imgGuestAvatar"
+                android:background="@drawable/avatar"
+                android:layout_below="@+id/txtGuestName"
+                android:layout_marginLeft="20dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtGuestName"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textStyle="normal|bold"
+                android:textColor="@color/red"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:text="Unready"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtReady"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/imgGuestAvatar"
+                android:layout_below="@+id/txtGuestName"
+                android:gravity="center"
+                android:layout_marginTop="35dp"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textSize="36sp"
+                android:textColor="@color/green" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtGuestCoin"
+                android:layout_toRightOf="@id/imgGuestCoin"
+                android:layout_below="@+id/imgGuestAvatar"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textSize="14sp"
+                android:textColor="#FF0"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:text="VS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/opacity_layout">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/avatar"
+                android:id="@+id/imgHostAvatar"
+                android:layout_below="@+id/txtHostName"
+                android:layout_marginLeft="20dp" />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                app:srcCompat="@drawable/coins"
+                android:id="@+id/imgHostCoin"
+                android:layout_below="@+id/imgHostAvatar"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtHostName"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"
+                android:textColor="@color/green"
+                android:textStyle="normal|bold"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnReady"
+                android:background="@drawable/ready"
+                android:layout_alignStart="@+id/btnStart"
+                android:layout_alignTop="@+id/btnStart"
+                android:layout_alignRight="@+id/btnStart"
+                android:layout_alignEnd="@+id/btnStart"
+                android:layout_alignBottom="@+id/btnStart" />
+
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:id="@+id/btnStart"
+                android:background="@drawable/start"
+                android:layout_toRightOf="@+id/imgHostAvatar"
+                android:layout_below="@+id/txtHostName"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="35dp" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtHostCoin"
+                android:layout_below="@+id/imgHostAvatar"
+                android:layout_toRightOf="@+id/imgHostCoin"
+                android:textColor="#FF0"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
 </LinearLayout>

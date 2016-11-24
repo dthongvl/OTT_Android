@@ -1,7 +1,7 @@
 package vizion.com.ott.Activities;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.R;
 
-public class PlayActivity extends AppCompatActivity implements IActivity{
+public class PlayActivity extends AppCompatActivity implements IActivity {
 
     private TextView txtEnemyName;
     private TextView txtEnemyReady;

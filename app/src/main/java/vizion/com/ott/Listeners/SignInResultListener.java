@@ -3,7 +3,6 @@ package vizion.com.ott.Listeners;
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 
@@ -11,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vizion.com.ott.Activities.MenuActivity;
-import vizion.com.ott.Models.MyRoom;
 import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.MyProgressDialog;
@@ -58,7 +56,6 @@ public class SignInResultListener implements Emitter.Listener{
                         MyProgressDialog.getInstance(ourInstance.activity, "").hideProgressDialog();
                         Intent intent = new Intent(ourInstance.activity, MenuActivity.class);
                         ourInstance.activity.startActivity(intent);
-                        ourInstance.activity.finish();
                     } else {
                         MyProgressDialog.getInstance(ourInstance.activity, "").hideProgressDialog();
                         TextView txtEmail = (TextView) ourInstance.activity.findViewById(R.id.txtEmail);
