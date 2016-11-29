@@ -11,4 +11,10 @@
     <string name="wait_sign_up">Đang đăng kí</string>
     <string name="createRoom">Đang tạo phòng</string>
     <string name="update">Đang cập nhật</string>
+    <string name="please_choice">Vui lòng chọn kéo búa bao</string>
+    <string name="please_ready">Vui lòng sẵn sàng</string>
+    <string name="ready">Sẵn sàng</string>
+    <string name="unready">Chưa sẵn sàng</string>
+    <string name="you_win">Bạn đã thắng</string>
+    <string name="you_lose">Bạn đã thua</string>
 </resources>

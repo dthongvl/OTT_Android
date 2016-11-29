@@ -1,6 +1,8 @@
 package vizion.com.ott.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -8,9 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.github.nkzawa.emitter.Emitter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements IActivity {
     private EditText txtPassword;
     private Button btnSignIn;
     private Button btnSignUp;
-    public String roomData;
-    private boolean getRoomSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +39,9 @@ public class MainActivity extends AppCompatActivity implements IActivity {
         this.addEventListeners();
 
         SocketHelper.getInstance().connect();
-/*
-        JSONObject reqObject = new JSONObject();
-        try {
-            reqObject.put("email", "d@gmail.com");
-            reqObject.put("pass", "123456");
-            reqObject.put("displayName", "D's Name");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        SocketHelper.getInstance().sendRequest(Commands.CLIENT_SIGN_UP, reqObject);
-        */
+
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        txtEmail.setText(sharedPref.getString("email", ""));
     }
 
 

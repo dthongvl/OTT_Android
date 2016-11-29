@@ -180,7 +180,7 @@
             <ImageButton
                 android:id="@+id/btnScissor"
                 android:layout_weight="1"
-                android:background="@drawable/twofingersup"
+                android:background="@drawable/scissor"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp" />
@@ -188,14 +188,14 @@
             <ImageButton
                 android:id="@+id/btnHammer"
                 android:layout_weight="1"
-                android:background="@drawable/fist"
+                android:background="@drawable/hammer"
                 android:layout_height="match_parent"
                 android:layout_width="50dp" />
 
             <ImageButton
                 android:id="@+id/btnBag"
                 android:layout_weight="1"
-                android:background="@drawable/fivefingers"
+                android:background="@drawable/bag"
                 android:layout_height="match_parent"
                 android:layout_width="50dp"
                 android:layout_marginLeft="10dp" />

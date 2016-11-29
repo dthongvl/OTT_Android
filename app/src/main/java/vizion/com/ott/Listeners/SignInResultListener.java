@@ -1,7 +1,9 @@
 package vizion.com.ott.Listeners;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.TextView;
 
 import com.github.nkzawa.emitter.Emitter;
@@ -61,6 +63,12 @@ public class SignInResultListener implements Emitter.Listener{
                         TextView txtEmail = (TextView) ourInstance.activity.findViewById(R.id.txtEmail);
                         txtEmail.setError("Email hoặc mật khẩu không đúng!");
                     }
+
+                    SharedPreferences sharedPref = ourInstance.activity.getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("email", MyUser.getInstance().getEmail());
+                    editor.apply();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

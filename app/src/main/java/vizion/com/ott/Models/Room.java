@@ -16,7 +16,34 @@ public class Room implements Parcelable {
     private String guestUid;
     private boolean guestReady;
     private double bestOf;
+    private String matchId;
+    private int gameId;
+    private boolean couting = false;
+
+    public String getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(String matchId) {
+        this.matchId = matchId;
+    }
+
+    public boolean isCouting() {
+        return couting;
+    }
+
+    public void setCouting(boolean couting) {
+        this.couting = couting;
+    }
     //private
+
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
+    }
 
     public Room() {
     }

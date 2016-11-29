@@ -1,25 +1,16 @@
 package vizion.com.ott.Activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.github.nkzawa.emitter.Emitter;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.Models.MyUser;
-import vizion.com.ott.Models.Room;
 import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
@@ -52,8 +43,6 @@ public class MenuActivity extends AppCompatActivity implements IActivity {
         }
         RoomList.getInstance().clearListRooms();
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_SIGN_OUT, reqObject);
-        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
-        startActivity(intent);
         finish();
     }
 

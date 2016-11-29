@@ -1,19 +1,41 @@
 package vizion.com.ott.Activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import vizion.com.ott.Entities.IActivity;
+import vizion.com.ott.Listeners.MatchResultListener;
+import vizion.com.ott.Listeners.PlayClientReadyListener;
+import vizion.com.ott.Listeners.SubmitSelectionListener;
+import vizion.com.ott.Models.MyEnemy;
+import vizion.com.ott.Models.MyRoom;
+import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.R;
+import vizion.com.ott.Utils.Commands;
+import vizion.com.ott.Utils.SocketHelper;
 
 public class PlayActivity extends AppCompatActivity implements IActivity {
 
     private TextView txtEnemyName;
     private TextView txtEnemyReady;
     private ImageView imgEnemyChoice;
+    private ImageView imgEnemyAvatar;
 
     private TextView txtTime;
     private TextView txtWin;
@@ -31,6 +53,10 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
     private TextView txtUserName;
     private ImageView imgUserAvatar;
 
+    private int selection = 0;
+    private int gameId = 0;
+    private boolean ready = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +64,41 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
 
         this.mapViewIDs();
         this.addEventListeners();
+
+        MyRoom.getInstance().setGameId(0);
+
+        loadMatch();
+    }
+
+    private void loadMatch() {
+        Intent intent = getIntent();
+        MyRoom.getInstance().setMatchId(intent.getStringExtra("match_id"));
+
+        txtUserName.setText(MyUser.getInstance().getName());
+        imgUserAvatar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onGlobalLayout() {
+                imgUserAvatar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                Picasso.with(PlayActivity.this).load(MyUser.getInstance().getAvatar()).memoryPolicy(MemoryPolicy.NO_CACHE )
+                        .networkPolicy(NetworkPolicy.NO_CACHE).resize(imgUserAvatar.getWidth(),imgUserAvatar.getHeight()).centerCrop().into(imgUserAvatar);
+
+            }
+        });
+
+        txtEnemyName.setText(MyEnemy.getInstance().getName());
+        imgEnemyAvatar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onGlobalLayout() {
+                imgEnemyAvatar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                Picasso.with(PlayActivity.this).load(MyEnemy.getInstance().getAvatar()).memoryPolicy(MemoryPolicy.NO_CACHE )
+                        .networkPolicy(NetworkPolicy.NO_CACHE).resize(imgEnemyAvatar.getWidth(),imgEnemyAvatar.getHeight()).centerCrop().into(imgEnemyAvatar);
+
+            }
+        });
+
+        txtBo.setText(String.valueOf(MyRoom.getInstance().getBestOf()));
     }
 
     @Override
@@ -45,6 +106,7 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
         txtEnemyName = (TextView) findViewById(R.id.txtEnemyName);
         txtEnemyReady = (TextView) findViewById(R.id.txtEnemyReady);
         imgEnemyChoice = (ImageView) findViewById(R.id.imgEnemyChoice);
+        imgEnemyAvatar = (ImageView) findViewById(R.id.imgEnemyAvatar);
 
         txtTime = (TextView) findViewById(R.id.txtTime);
         txtWin = (TextView) findViewById(R.id.txtWin);
@@ -65,6 +127,83 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
 
     @Override
     public void addEventListeners() {
+        SocketHelper.getInstance().addListener(Commands.CLIENT_READY_RS, PlayClientReadyListener.getInstance(PlayActivity.this));
+        SocketHelper.getInstance().addListener(Commands.CLIENT_SUBMIT_SELECTION_RS, SubmitSelectionListener.getInstance(PlayActivity.this));
+        SocketHelper.getInstance().addListener(Commands.SERVER_SEND_MATCH_RESULT, MatchResultListener.getInstance(PlayActivity.this));
+        btnBag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selection = 2;
+                imgUserChoice.setImageResource(R.drawable.bag);
+            }
+        });
 
+        btnHammer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selection = 1;
+                imgUserChoice.setImageResource(R.drawable.hammer);
+            }
+        });
+
+        btnScissor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selection = 3;
+                imgUserChoice.setImageResource(R.drawable.scissor);
+            }
+        });
+
+        btnReady.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MyRoom.getInstance().isCouting()) return;
+                ready = !ready;
+                clientReady();
+                if (ready) {
+                    txtUserReady.setText(getString(R.string.ready));
+                } else {
+                    txtUserReady.setText(getString(R.string.unready));
+                }
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!MyRoom.getInstance().isCouting()) {
+                    Toast.makeText(PlayActivity.this, getString(R.string.please_ready), Toast.LENGTH_SHORT).show();
+                } else if (gameId == MyRoom.getInstance().getGameId()) {
+                    clientSubmit();
+                    MyRoom.getInstance().setCouting(false);
+                    ready = false;
+                }
+            }
+        });
+    }
+
+    private void clientReady() {
+        JSONObject reqObject = new JSONObject();
+        try {
+            reqObject.put("match_id", MyRoom.getInstance().getMatchId());
+            reqObject.put("uid", MyUser.getInstance().getUid());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SocketHelper.getInstance().sendRequest(Commands.CLIENT_READY,reqObject);
+    }
+
+    private void clientSubmit() {
+        JSONObject reqObject = new JSONObject();
+        try {
+            reqObject.put("match_id", MyRoom.getInstance().getMatchId());
+            gameId++;
+            reqObject.put("game_id", gameId);
+            reqObject.put("uid", MyUser.getInstance().getUid());
+            reqObject.put("selection", selection);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SocketHelper.getInstance().sendRequest(Commands.CLIENT_SUBMIT_SELECTION, reqObject);
     }
 }

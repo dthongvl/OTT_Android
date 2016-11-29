@@ -32,6 +32,7 @@ import vizion.com.ott.Listeners.ClientReadyListener;
 import vizion.com.ott.Listeners.LeaveRoomListener;
 import vizion.com.ott.Listeners.PlayerLeaveRoomListener;
 import vizion.com.ott.Listeners.UpdateRoomInfoListener;
+import vizion.com.ott.Models.MyEnemy;
 import vizion.com.ott.Models.MyRoom;
 import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.Models.User;
@@ -143,20 +144,19 @@ public class WaitActivity extends AppCompatActivity implements IActivity {
             imgGuestCoin.setVisibility(View.INVISIBLE);
         }
         else {
-            final Intent intent= getIntent();
             imgGuestAvatar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                 @Override
                 public void onGlobalLayout() {
                     imgGuestAvatar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    Picasso.with(WaitActivity.this).load(intent.getStringExtra("oponent_avatar")).memoryPolicy(MemoryPolicy.NO_CACHE )
+                    Picasso.with(WaitActivity.this).load(MyEnemy.getInstance().getAvatar()).memoryPolicy(MemoryPolicy.NO_CACHE )
                             .networkPolicy(NetworkPolicy.NO_CACHE).resize(imgGuestAvatar.getWidth(),imgGuestAvatar.getHeight()).centerCrop().into(imgGuestAvatar);
 
                 }
             });
 
-            txtGuestName.setText(intent.getStringExtra("oponent_name"));
-            txtGuestCoin.setText(String.valueOf(intent.getDoubleExtra("oponent_coin",0)));
+            txtGuestName.setText(MyEnemy.getInstance().getName());
+            txtGuestCoin.setText(String.valueOf(MyEnemy.getInstance().getCoinCard()));
         }
         btnStart.setEnabled(false);
     }
@@ -311,6 +311,13 @@ public class WaitActivity extends AppCompatActivity implements IActivity {
     }
 
     private void startGame() {
+        JSONObject reqObject = new JSONObject();
+        try {
+            reqObject.put("room_id",MyRoom.getInstance().getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        SocketHelper.getInstance().sendRequest(Commands.CLIENT_START_PLAYING,reqObject);
     }
 
     private void clientReady() {

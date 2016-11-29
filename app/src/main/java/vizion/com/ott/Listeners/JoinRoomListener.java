@@ -2,7 +2,6 @@ package vizion.com.ott.Listeners;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 
@@ -10,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import vizion.com.ott.Activities.WaitActivity;
+import vizion.com.ott.Models.MyEnemy;
 import vizion.com.ott.Models.MyRoom;
 import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.Utils.MyProgressDialog;
@@ -42,9 +42,9 @@ public class JoinRoomListener implements Emitter.Listener {
                             MyRoom.getInstance().setGuestReady(false);
                             Intent intent = new Intent(ourInstance.activity, WaitActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            intent.putExtra("oponent_avatar",data.getString("avatar"));
-                            intent.putExtra("oponent_coin",data.getString("coin_card"));
-                            intent.putExtra("oponent_name",data.getString("name"));
+                            MyEnemy.getInstance().setName(data.getString("name"));
+                            MyEnemy.getInstance().setAvatar(data.getString("avatar"));
+                            MyEnemy.getInstance().setCoinCard(data.getDouble("coin_card"));
                             ourInstance.activity.startActivity(intent);
                         }
                         else{
@@ -53,9 +53,9 @@ public class JoinRoomListener implements Emitter.Listener {
                             MyRoom.getInstance().setGuestUid(MyUser.getInstance().getUid());
                             MyRoom.getInstance().setGuestReady(false);
                             Intent intent = new Intent(ourInstance.activity, WaitActivity.class);
-                            intent.putExtra("oponent_avatar",data.getString("avatar"));
-                            intent.putExtra("oponent_coin",data.getString("coin_card"));
-                            intent.putExtra("oponent_name",data.getString("name"));
+                            MyEnemy.getInstance().setName(data.getString("name"));
+                            MyEnemy.getInstance().setAvatar(data.getString("avatar"));
+                            MyEnemy.getInstance().setCoinCard(data.getDouble("coin_card"));
                             MyProgressDialog.getInstance(ourInstance.activity,"").hideProgressDialog();
                             ourInstance.activity.startActivity(intent);
 
