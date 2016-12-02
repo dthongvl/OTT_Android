@@ -1,6 +1,7 @@
 package vizion.com.ott.Listeners;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class SubmitSelectionListener implements Emitter.Listener {
             public void run() {
                 try {
                     JSONObject data = (JSONObject) args[0];
-
+                    Log.d("DEBUG", data.toString());
                     ImageView imgEnemyChoice = (ImageView) ourInstance.activity.findViewById(R.id.imgEnemyChoice);
                     switch (data.getInt("their")) {
                         case 1:

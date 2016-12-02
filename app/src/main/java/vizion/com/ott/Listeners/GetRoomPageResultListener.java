@@ -1,6 +1,7 @@
 package vizion.com.ott.Listeners;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.github.nkzawa.emitter.Emitter;
 
@@ -10,8 +11,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.Models.Room;
+import vizion.com.ott.Models.RoomList;
 
 /**
  * Created by dthongvl on 11/13/16.
@@ -35,7 +36,7 @@ public class GetRoomPageResultListener implements Emitter.Listener {
             public void run() {
                 JSONObject data = (JSONObject) args[0];
                 try {
-
+                    Log.d("DEBUG", data.toString());
                     JSONArray arrRooms = null;
                     arrRooms = data.getJSONArray("rooms");
                     ArrayList<Room> roomPage = new ArrayList<Room>();

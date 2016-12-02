@@ -2,6 +2,7 @@ package vizion.com.ott.Listeners;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.github.nkzawa.emitter.Emitter;
 
@@ -37,6 +38,7 @@ public class JoinRoomListener implements Emitter.Listener {
             public void run() {
                 JSONObject data = (JSONObject) args[0];
                 try {
+                    Log.d("DEBUG", data.toString());
                         if(MyRoom.getInstance().isHost()){
                             MyRoom.getInstance().setGuestUid(data.getString("uid"));
                             MyRoom.getInstance().setGuestReady(false);

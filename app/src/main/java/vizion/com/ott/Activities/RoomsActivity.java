@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -27,9 +26,8 @@ import vizion.com.ott.Listeners.CreateRoomListener;
 import vizion.com.ott.Listeners.GetRoomPageResultListener;
 import vizion.com.ott.Listeners.JoinRoomListener;
 import vizion.com.ott.Models.MyRoom;
-import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.Models.MyUser;
-import vizion.com.ott.Models.Room;
+import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
 import vizion.com.ott.Utils.MyProgressDialog;

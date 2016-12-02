@@ -110,8 +110,9 @@ public class RoomList {
         ourInstance.listRooms.clear();
         ourInstance.currentPage=0;
         ourInstance.loadedPage=0;
-        ourInstance.adapter.notifyDataSetChanged();
-
+        if (adapter != null) {
+            ourInstance.adapter.notifyDataSetChanged();
+        }
     }
 
     public ListRoomAdapter getAdapter() {

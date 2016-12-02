@@ -6,7 +6,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,17 +37,19 @@ public class UpdateProfileResultListener implements Emitter.Listener{
                 JSONObject data = (JSONObject) args[0];
                 boolean isSuccess;
                 try {
+                    Log.d("DEBUG", data.toString());
                     isSuccess = data.getBoolean("isSuccess");
                     TextView txtEmail = (TextView) ourInstance.activity.findViewById(R.id.txtEmail);
                     TextView txtNickname = (TextView) ourInstance.activity.findViewById(R.id.txtNickname);
                     if (isSuccess) {
+                        txtEmail.setError(null);
                         MyUser.getInstance().setEmail(txtEmail.getText().toString());
                         MyUser.getInstance().setName(txtNickname.getText().toString());
                         MyUser.getInstance().setAvatar(data.getString("newAvatarUrl"));
                         Log.d("avata",MyUser.getInstance().getAvatar());
                     } else {
-                        Toast.makeText(ourInstance.activity, "errr",Toast.LENGTH_LONG).show();
                         txtEmail.setError("Email hoặc mật khẩu không đúng");
+                        Toast.makeText(ourInstance.activity, "errr",Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     return;

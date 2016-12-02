@@ -2,6 +2,7 @@ package vizion.com.ott.Listeners;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
@@ -34,6 +35,7 @@ public class StartPlayingListener implements Emitter.Listener{
                 JSONObject data = (JSONObject) args[0];
                 boolean isSuccess;
                 try {
+                    Log.d("DEBUG", data.toString());
                     isSuccess = data.getBoolean("isSuccess");
                     if (isSuccess) {
                         Intent intent = new Intent(ourInstance.activity, PlayActivity.class);

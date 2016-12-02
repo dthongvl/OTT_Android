@@ -31,6 +31,7 @@ import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.Listeners.ClientReadyListener;
 import vizion.com.ott.Listeners.LeaveRoomListener;
 import vizion.com.ott.Listeners.PlayerLeaveRoomListener;
+import vizion.com.ott.Listeners.StartPlayingListener;
 import vizion.com.ott.Listeners.UpdateRoomInfoListener;
 import vizion.com.ott.Models.MyEnemy;
 import vizion.com.ott.Models.MyRoom;
@@ -187,6 +188,7 @@ public class WaitActivity extends AppCompatActivity implements IActivity {
         SocketHelper.getInstance().addListener(Commands.PLAYER_LEAVE_ROOM, PlayerLeaveRoomListener.getInstance(WaitActivity.this));
         SocketHelper.getInstance().addListener(Commands.CLIENT_READY_RS, ClientReadyListener.getInstance(WaitActivity.this));
         SocketHelper.getInstance().addListener(Commands.CLIENT_UPDATE_ROOM_INFO_RS, UpdateRoomInfoListener.getInstance(WaitActivity.this));
+        SocketHelper.getInstance().addListener(Commands.CLIENT_START_PLAYING_RS, StartPlayingListener.getInstance(WaitActivity.this));
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

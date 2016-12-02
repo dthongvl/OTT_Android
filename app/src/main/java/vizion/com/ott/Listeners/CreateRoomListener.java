@@ -2,7 +2,7 @@ package vizion.com.ott.Listeners;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.TextView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
@@ -12,9 +12,7 @@ import org.json.JSONObject;
 
 import vizion.com.ott.Activities.WaitActivity;
 import vizion.com.ott.Models.MyRoom;
-import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.Models.Room;
-import vizion.com.ott.R;
 import vizion.com.ott.Utils.MyProgressDialog;
 
 /**
@@ -41,6 +39,7 @@ public class CreateRoomListener implements Emitter.Listener {
             public void run() {
                 JSONObject data = (JSONObject) args[0];
                 try {
+                    Log.d("DEBUG", data.toString());
                     boolean isSuccess = data.getBoolean("isSuccess");
                     if(isSuccess){
                         MyRoom.getInstance().setId(data.getString("room_id"));

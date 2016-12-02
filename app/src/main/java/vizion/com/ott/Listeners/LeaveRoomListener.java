@@ -1,18 +1,14 @@
 package vizion.com.ott.Listeners;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import vizion.com.ott.Activities.RoomsActivity;
 import vizion.com.ott.Models.MyRoom;
-import vizion.com.ott.Models.RoomList;
 
 /**
  * Created by Razor on 20/11/2016.
@@ -38,9 +34,9 @@ public class LeaveRoomListener implements Emitter.Listener{
             public void run() {
                 JSONObject data = (JSONObject) args[0];
                 try {
+                    Log.d("DEBUG", data.toString());
                     boolean isSuccess = data.getBoolean("isSuccess");
                     if(isSuccess){
-
                         MyRoom.getInstance().clear();
                         ourInstance.activity.finish();
                         Log.d("leave","ok");

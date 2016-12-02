@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
@@ -174,6 +175,7 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
                 if (!MyRoom.getInstance().isCouting()) {
                     Toast.makeText(PlayActivity.this, getString(R.string.please_ready), Toast.LENGTH_SHORT).show();
                 } else if (gameId == MyRoom.getInstance().getGameId()) {
+                    Log.d("DEBUG", "HOP LEEEEE");
                     clientSubmit();
                     MyRoom.getInstance().setCouting(false);
                     ready = false;

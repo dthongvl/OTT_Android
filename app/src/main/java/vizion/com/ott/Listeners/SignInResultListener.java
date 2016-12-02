@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.github.nkzawa.emitter.Emitter;
@@ -39,7 +40,7 @@ public class SignInResultListener implements Emitter.Listener{
                 JSONObject data = (JSONObject) args[0];
 
                 try {
-
+                    Log.d("DEBUG", data.toString());
                     boolean isSuccess = data.getBoolean("isSuccess");
                     if (isSuccess) {
 

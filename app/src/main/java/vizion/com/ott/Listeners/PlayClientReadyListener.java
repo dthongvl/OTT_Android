@@ -33,12 +33,24 @@ public class PlayClientReadyListener implements Emitter.Listener {
 
     @Override
     public void call(final Object... args) {
-        MyRoom.getInstance().setCouting(true);
-        TimerTask timerTask = new TimerTask((TextView) ourInstance.activity.findViewById(R.id.txtTime));
-        timerTask.execute();
+        try {
+            JSONObject data = (JSONObject) args[0];
+            TextView txtEnemyReady = (TextView) ourInstance.activity.findViewById(R.id.txtEnemyReady);
+            if (data.getBoolean("their")) {
+                txtEnemyReady.setText(ourInstance.activity.getString(R.string.ready));
+            } else {
+                txtEnemyReady.setText(ourInstance.activity.getString(R.string.unready));
+            }
+            if (!data.getBoolean("their") || !data.getBoolean("self")) return;
+            MyRoom.getInstance().setCouting(true);
+            TimerTask timerTask = new TimerTask((TextView) ourInstance.activity.findViewById(R.id.txtTime));
+            timerTask.execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
-    private class TimerTask extends AsyncTask<Void, Long, Void>
+    private class TimerTask extends AsyncTask<Void, Integer, Void>
     {
         TextView txtTime;
 
@@ -49,7 +61,7 @@ public class PlayClientReadyListener implements Emitter.Listener {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                for (Long i = 15L; i > 0L; --i) {
+                for (Integer i = 15; i > 0; --i) {
                     if (!MyRoom.getInstance().isCouting()) break;
                     publishProgress(i);
                     Thread.sleep(1000);
@@ -61,9 +73,9 @@ public class PlayClientReadyListener implements Emitter.Listener {
         }
 
         @Override
-        protected void onProgressUpdate(Long... values) {
+        protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            txtTime.setText("Time: " + values);
+            txtTime.setText("Time: " + values.toString());
         }
 
         @Override

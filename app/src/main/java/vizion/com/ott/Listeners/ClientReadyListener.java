@@ -3,6 +3,7 @@ package vizion.com.ott.Listeners;
 import android.app.Activity;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -13,8 +14,6 @@ import org.json.JSONObject;
 
 import vizion.com.ott.Models.MyRoom;
 import vizion.com.ott.R;
-
-import static vizion.com.ott.R.drawable.unready;
 
 /**
  * Created by Razor on 24/11/2016.
@@ -39,6 +38,7 @@ public class ClientReadyListener implements Emitter.Listener {
             public void run() {
                 JSONObject data = (JSONObject) args[0];
                 try {
+                    Log.d("DEBUG", data.toString());
                     boolean guestReady = data.getBoolean("ready");
                     if(guestReady){
                         MyRoom.getInstance().setGuestReady(true);

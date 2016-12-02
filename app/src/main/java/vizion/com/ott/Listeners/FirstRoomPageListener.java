@@ -11,8 +11,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import vizion.com.ott.Models.RoomList;
 import vizion.com.ott.Models.Room;
+import vizion.com.ott.Models.RoomList;
 
 /**
  * Created by dthongvl on 11/13/16.
@@ -37,6 +37,7 @@ public class FirstRoomPageListener implements Emitter.Listener{
 
                 JSONObject data = (JSONObject) args[0];
                 try {
+                    Log.d("DEBUG", data.toString());
                     RoomList.getInstance().setTotalPage(data.getInt("total_page"));
                     JSONArray arrRooms = data.getJSONArray("rooms");
                     Log.d("roompage",data.toString() );
