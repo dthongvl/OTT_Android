@@ -33,21 +33,26 @@ public class PlayClientReadyListener implements Emitter.Listener {
 
     @Override
     public void call(final Object... args) {
-        try {
-            JSONObject data = (JSONObject) args[0];
-            TextView txtEnemyReady = (TextView) ourInstance.activity.findViewById(R.id.txtEnemyReady);
-            if (data.getBoolean("their")) {
-                txtEnemyReady.setText(ourInstance.activity.getString(R.string.ready));
-            } else {
-                txtEnemyReady.setText(ourInstance.activity.getString(R.string.unready));
+        ourInstance.activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject data = (JSONObject) args[0];
+                    TextView txtEnemyReady = (TextView) ourInstance.activity.findViewById(R.id.txtEnemyReady);
+                    if (data.getBoolean("their")) {
+                        txtEnemyReady.setText(ourInstance.activity.getString(R.string.ready));
+                    } else {
+                        txtEnemyReady.setText(ourInstance.activity.getString(R.string.unready));
+                    }
+                    if (!data.getBoolean("their") || !data.getBoolean("self")) return;
+                    MyRoom.getInstance().setCouting(true);
+                    TimerTask timerTask = new TimerTask((TextView) ourInstance.activity.findViewById(R.id.txtTime));
+                    timerTask.execute();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-            if (!data.getBoolean("their") || !data.getBoolean("self")) return;
-            MyRoom.getInstance().setCouting(true);
-            TimerTask timerTask = new TimerTask((TextView) ourInstance.activity.findViewById(R.id.txtTime));
-            timerTask.execute();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     private class TimerTask extends AsyncTask<Void, Integer, Void>
@@ -73,9 +78,9 @@ public class PlayClientReadyListener implements Emitter.Listener {
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
+        protected void onProgressUpdate(final Integer... values) {
             super.onProgressUpdate(values);
-            txtTime.setText("Time: " + values.toString());
+            txtTime.setText("Time: " + values[0].toString());
         }
 
         @Override

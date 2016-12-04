@@ -12,7 +12,8 @@
     <string name="createRoom">Đang tạo phòng</string>
     <string name="update">Đang cập nhật</string>
     <string name="please_choice">Vui lòng chọn kéo búa bao</string>
-    <string name="please_ready">Vui lòng sẵn sàng</string>
+    <string name="please_wait_or_ready">Vui lòng đợi kết quả hoặc sẵn sàng</string>
+    <string name="please_wait">Vui lòng đợi kết quả</string>
     <string name="ready">Sẵn sàng</string>
     <string name="unready">Chưa sẵn sàng</string>
     <string name="you_win">Bạn đã thắng</string>

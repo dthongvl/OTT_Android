@@ -39,6 +39,7 @@ import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.Models.User;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
+import vizion.com.ott.Utils.DestroyEvent;
 import vizion.com.ott.Utils.MyProgressDialog;
 import vizion.com.ott.Utils.SocketHelper;
 
@@ -345,5 +346,11 @@ public class WaitActivity extends AppCompatActivity implements IActivity {
             e.printStackTrace();
         }
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_LEAVE_ROOM,reqObject);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DestroyEvent.getInstance().leaveRoom();
     }
 }

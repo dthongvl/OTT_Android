@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
@@ -29,6 +28,7 @@ import vizion.com.ott.Models.MyRoom;
 import vizion.com.ott.Models.MyUser;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
+import vizion.com.ott.Utils.DestroyEvent;
 import vizion.com.ott.Utils.SocketHelper;
 
 public class PlayActivity extends AppCompatActivity implements IActivity {
@@ -55,7 +55,7 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
     private ImageView imgUserAvatar;
 
     private int selection = 0;
-    private int gameId = 0;
+    private int gameId = 1;
     private boolean ready = false;
 
     @Override
@@ -66,7 +66,7 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
         this.mapViewIDs();
         this.addEventListeners();
 
-        MyRoom.getInstance().setGameId(0);
+        MyRoom.getInstance().setGameId(1);
 
         loadMatch();
     }
@@ -158,7 +158,10 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
         btnReady.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MyRoom.getInstance().isCouting()) return;
+                if (MyRoom.getInstance().isCouting()) {
+                    Toast.makeText(PlayActivity.this, getString(R.string.please_wait), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ready = !ready;
                 clientReady();
                 if (ready) {
@@ -173,14 +176,13 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
             @Override
             public void onClick(View view) {
                 if (!MyRoom.getInstance().isCouting()) {
-                    Toast.makeText(PlayActivity.this, getString(R.string.please_ready), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PlayActivity.this, getString(R.string.please_wait_or_ready), Toast.LENGTH_SHORT).show();
                 } else if (gameId == MyRoom.getInstance().getGameId()) {
-                    Log.d("DEBUG", "HOP LEEEEE");
-                    clientSubmit();
-                    MyRoom.getInstance().setCouting(false);
-                    ready = false;
+                        clientSubmit();
+                        MyRoom.getInstance().setCouting(false);
+                        ready = false;
+                    }
                 }
-            }
         });
     }
 
@@ -207,5 +209,11 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
             e.printStackTrace();
         }
         SocketHelper.getInstance().sendRequest(Commands.CLIENT_SUBMIT_SELECTION, reqObject);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DestroyEvent.getInstance().leaveRoom();
     }
 }

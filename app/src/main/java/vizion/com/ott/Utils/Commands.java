@@ -28,7 +28,7 @@ public class Commands {
     public static final String CLIENT_UPDATE_ROOM_INFO="Client-Update-Room-Info";
     public static final String CLIENT_UPDATE_ROOM_INFO_RS="Client-Update-Room-Info-Rs";
     public static final String CLIENT_SUBMIT_SELECTION="Client-Submit-Selection";
-    public static final String CLIENT_SUBMIT_SELECTION_RS="Client-Submit-Selection";
+    public static final String CLIENT_SUBMIT_SELECTION_RS="Client-Submit-Selection-Rs";
     public static final String SERVER_SEND_MATCH_RESULT="Server-Send-Match-Result";
 
 

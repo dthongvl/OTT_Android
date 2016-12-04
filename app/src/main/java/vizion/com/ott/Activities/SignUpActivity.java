@@ -1,10 +1,7 @@
 package vizion.com.ott.Activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.github.nkzawa.emitter.Emitter;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -29,6 +24,7 @@ import vizion.com.ott.Entities.IActivity;
 import vizion.com.ott.Listeners.SignUpResultListener;
 import vizion.com.ott.R;
 import vizion.com.ott.Utils.Commands;
+import vizion.com.ott.Utils.ImageCompression;
 import vizion.com.ott.Utils.MyProgressDialog;
 import vizion.com.ott.Utils.SocketHelper;
 
@@ -106,9 +102,13 @@ public class SignUpActivity extends AppCompatActivity implements IActivity {
                 Uri selectedImageUri = data.getData();
                 Picasso.with(this.getBaseContext()).load(selectedImageUri).resize(imgAvatar.getWidth(),imgAvatar.getHeight()).centerCrop().into(imgAvatar);
                 try {
+                    Bitmap bmp = ImageCompression.getInstance().getBitmap(this, selectedImageUri);
 
-                    byteImage = getBytes(getContentResolver().openInputStream(selectedImageUri));
-
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bmp.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    byteImage = stream.toByteArray();
+                    stream.close();
+                    //byteImage = getBytes(getContentResolver().openInputStream(selectedImageUri));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
