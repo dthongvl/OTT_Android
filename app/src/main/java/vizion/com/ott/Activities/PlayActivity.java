@@ -134,24 +134,30 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
         btnBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selection = 2;
-                imgUserChoice.setImageResource(R.drawable.bag);
+                if (gameId == MyRoom.getInstance().getGameId()) {
+                    selection = 2;
+                    imgUserChoice.setImageResource(R.drawable.bag);
+                }
             }
         });
 
         btnHammer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selection = 1;
-                imgUserChoice.setImageResource(R.drawable.hammer);
+                if (gameId == MyRoom.getInstance().getGameId()) {
+                    selection = 1;
+                    imgUserChoice.setImageResource(R.drawable.hammer);
+                }
             }
         });
 
         btnScissor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selection = 3;
-                imgUserChoice.setImageResource(R.drawable.scissor);
+                if (gameId == MyRoom.getInstance().getGameId()) {
+                    selection = 3;
+                    imgUserChoice.setImageResource(R.drawable.scissor);
+                }
             }
         });
 
@@ -181,6 +187,7 @@ public class PlayActivity extends AppCompatActivity implements IActivity {
                         clientSubmit();
                         MyRoom.getInstance().setCouting(false);
                         ready = false;
+                        txtTime.setText(getString(R.string.waiting));
                     }
                 }
         });

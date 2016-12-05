@@ -57,6 +57,11 @@ public class SubmitSelectionListener implements Emitter.Listener {
                         Toast.makeText(ourInstance.activity, ourInstance.activity.getString(R.string.you_lose), Toast.LENGTH_SHORT).show();
                     }
 
+                    TextView txtEnemyReady = (TextView) ourInstance.activity.findViewById(R.id.txtEnemyReady);
+                    txtEnemyReady.setText(ourInstance.activity.getString(R.string.unready));
+                    TextView txtUserReady = (TextView) ourInstance.activity.findViewById(R.id.txtUserReady);
+                    txtUserReady.setText(ourInstance.activity.getString(R.string.unready));
+
                     MyRoom.getInstance().setGameId(MyRoom.getInstance().getGameId() + 1);
                 } catch (JSONException e) {
                     e.printStackTrace();

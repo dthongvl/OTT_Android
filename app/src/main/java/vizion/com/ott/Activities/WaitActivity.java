@@ -193,6 +193,7 @@ public class WaitActivity extends AppCompatActivity implements IActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyProgressDialog.getInstance(WaitActivity.this, getString(R.string.joinning)).showProgressDialog();
                 startGame();
             }
         });
